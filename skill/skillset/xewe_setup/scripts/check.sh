@@ -10,20 +10,20 @@ fails=0
 ok()   { echo "ok    $1"; }
 fail() { echo "FAIL  $1"; fails=$((fails+1)); }
 
-# Required files (R-17, R-19)
-for f in AGENTS.md README.md RULES.md handoffs/HANDOFF.md handoffs/handoffs/yyyy-mm-dd-hh-mm-ss.md skill/SKILL.md; do
+# Required files (R-13, R-14)
+for f in AGENTS.md README.md RULES.md PREFERENCES.md handoffs/HANDOFF.md handoffs/handoffs/yyyy-mm-dd-hh-mm-ss.md skill/SKILL.md; do
   [ -f "$root/$f" ] && ok "$f exists" || fail "$f missing"
 done
 
-# Exact top level (R-17)
+# Exact top level (R-13)
 top=$(ls -A "$root" | grep -v '^\.git$' | LC_ALL=C sort | tr '\n' ' ')
-[ "$top" = "AGENTS.md README.md RULES.md handoffs skill " ] && ok "top level is exactly the five items" || fail "top level is '$top'"
+[ "$top" = "AGENTS.md PREFERENCES.md README.md RULES.md handoffs skill " ] && ok "top level is exactly the six items" || fail "top level is '$top'"
 
-# Template intact (R-09); project name filled
+# Template intact (R-07); project name filled
 grep -q '<yyyy-mm-dd-hh-mm-ss>' "$root/handoffs/handoffs/yyyy-mm-dd-hh-mm-ss.md" 2>/dev/null && ok "template still holds its placeholder" || fail "template altered or missing"
 grep -q '<project>' "$root/AGENTS.md" 2>/dev/null && echo "warn  AGENTS.md still has the <project> placeholder (expected only in the reference itself)" || ok "AGENTS.md has a project name"
 
-# Skills: frontmatter shape and registration (R-13, R-14)
+# Skills: frontmatter shape and registration (R-11, R-12)
 for d in "$root"/skill/skillset/*/; do
   n=$(basename "$d")
   if [ ! -f "$d/SKILL.md" ]; then fail "$n has no SKILL.md"; continue; fi
@@ -33,7 +33,7 @@ for d in "$root"/skill/skillset/*/; do
   grep -q "skillset/$n/SKILL.md" "$root/skill/SKILL.md" && ok "$n registered in skill/SKILL.md" || fail "$n not registered in skill/SKILL.md"
 done
 
-# Handoffs: the same checks xewe_handoff runs before every read or write (R-06, R-10, R-11)
+# Handoffs: the same checks xewe_handoff runs before every read or write (R-05, R-08, R-09)
 H="$root/handoffs/HANDOFF.md"
 for k in HEAD "HEAD timestamp" Entries "Last writer" Integrity Status; do
   grep -q "^- \*\*$k:\*\*" "$H" 2>/dev/null || fail "HANDOFF.md missing key '$k'"
@@ -58,11 +58,15 @@ for s in $(grep -oE '^- \*\*[0-9]{4}(-[0-9]{2}){5}\*\*' "$H" 2>/dev/null | sed '
   [ -f "$root/handoffs/handoffs/$s.md" ] || fail "index row $s has no file"
 done
 
-# Rule IDs cited exist (R-18 keeps them stable)
-for id in $(grep -rohE 'R-[0-9]{2}' "$root" --include='*.md' | sort -u); do
-  grep -q "^- \*\*$id " "$root/RULES.md" || fail "$id is cited but not defined in RULES.md"
+# Rule and preference IDs cited exist (R-15 keeps them stable). Historical entries are skipped:
+# they are immutable (P-02) and may cite IDs from before a renumbering.
+for id in $(grep -rohE '\b[RP]-[0-9]{2}\b' "$root" --include='*.md' --exclude-dir=handoffs | sort -u); do
+  case "$id" in
+    R-*) grep -q "^- \*\*$id " "$root/RULES.md" || fail "$id is cited but not defined in RULES.md" ;;
+    P-*) grep -q "^- \*\*$id " "$root/PREFERENCES.md" || fail "$id is cited but not defined in PREFERENCES.md" ;;
+  esac
 done
-ok "every cited rule ID is defined"
+ok "every cited rule and preference ID is defined"
 
 echo "---"
 if [ "$fails" -eq 0 ]; then echo "PASS: $root"; exit 0; else echo "FAIL: $fails check(s) failed in $root"; exit 1; fi

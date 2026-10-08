@@ -12,7 +12,7 @@ points here. All paths are relative to `.agents/`.
   `Entry:` field, and its index key.
 - Collision rule: if a file with the derived stem already exists, or the stem is not lexically
   greater than the current HEAD stem, wait one second and derive again. Never overwrite, never
-  backdate (R-10).
+  backdate (R-08).
 - The template `handoffs/handoffs/yyyy-mm-dd-hh-mm-ss.md` does not match the regex and is
   never counted as an entry.
 
@@ -22,7 +22,7 @@ Line 1 is always the Updated line. Then the title, a two-line note, and three se
 
 | Field | Value | Derived from |
 |---|---|---|
-| Updated line | `Updated <yyyy-mm-dd hh:mm:ss> UTC by xewe_handoff handoff. Read and written only by the xewe_handoff skill (R-05, R-06).` | time of the write |
+| Updated line | `Updated <yyyy-mm-dd hh:mm:ss> UTC by xewe_handoff handoff. Read and written only by the xewe_handoff skill (R-04, R-05).` | time of the write |
 | HEAD | `handoffs/handoffs/<stem>.md`, or `none` | greatest entry filename |
 | HEAD timestamp | `<yyyy-mm-dd hh:mm:ss> UTC`, or `none` | HEAD stem |
 | Entries | integer | count of files matching the regex |
@@ -31,7 +31,7 @@ Line 1 is always the Updated line. Then the title, a two-line note, and three se
 | Status | `closed — resume with the pickup procedure of xewe_handoff.` or `empty — no entries yet; the first handoff creates HEAD.` | Entries > 0 or Entries = 0 |
 
 The Integrity field only ever holds the `consistent` sentence. The skill never writes an
-inconsistent state; it reports and stops instead (R-11).
+inconsistent state; it reports and stops instead (R-09).
 
 ### Index row
 
@@ -46,7 +46,7 @@ Newest first. One row per entry file, one entry file per row.
 A fresh copy of `.agents/` with no entries carries exactly this head block:
 
 ```
-Updated <yyyy-mm-dd hh:mm:ss> UTC by xewe_handoff handoff. Read and written only by the xewe_handoff skill (R-05, R-06).
+Updated <yyyy-mm-dd hh:mm:ss> UTC by xewe_handoff handoff. Read and written only by the xewe_handoff skill (R-04, R-05).
 
 # HANDOFF
 
@@ -68,7 +68,7 @@ status. It holds no session content; that lives in the entry files.
 
 ## Template
 
-- `handoffs/handoffs/yyyy-mm-dd-hh-mm-ss.md` — blank entry; copy it, never edit it (R-09).
+- `handoffs/handoffs/yyyy-mm-dd-hh-mm-ss.md` — blank entry; copy it, never edit it (R-07).
 ```
 
 ## Entry file
@@ -82,11 +82,11 @@ Title line: `# Handoff <stem>`. Then ten sections with fixed numbers and heading
 | 3 | `## 3. Work done` | Chronological bullets, one line each, past tense. |
 | 4 | `## 4. Files read` | Relative paths, or `none`. |
 | 5 | `## 5. Files written` | `<path> — <created \| edited \| moved \| deleted>` per line. |
-| 6 | `## 6. Design decisions` | Blocks of `**Decision:**`, `**Why:**`, `**Alternatives rejected:**`. Rule deviations (R-04) and rule proposals (R-24) live here. |
+| 6 | `## 6. Design decisions` | Blocks of `**Decision:**`, `**Why:**`, `**Alternatives rejected:**`. Rule deviations (R-03) and rule proposals (P-10) live here. |
 | 7 | `## 7. Philosophical choices` | Principles meant to outlive the session. |
 | 8 | `## 8. Open threads / next steps` | `- [ ]` checklist, highest priority first. |
 | 9 | `## 9. Exit point` | Exactly four bullets, in this order, nothing else. See below. |
-| 10 | `## 10. Verification state` | Table `\| Claim \| Verified by \| Result \|`, at least one row. `unverified` is a legal result (R-21). |
+| 10 | `## 10. Verification state` | Table `\| Claim \| Verified by \| Result \|`, at least one row. `unverified` is a legal result (P-07). |
 
 ### Section 9 keys
 

@@ -11,20 +11,20 @@ description: >
 
 # xewe_handoff
 
-Owns `handoffs/`. Nothing else reads or writes there (R-05). Two procedures: `pickup` at the
+Owns `handoffs/`. Nothing else reads or writes there (R-04). Two procedures: `pickup` at the
 start of a session and `handoff` at the end. Both begin with the same validation. All paths
 are relative to `.agents/`. Exact formats are in `references/formats.md`.
 
 ## Invariants
 
 - HEAD is the lexically greatest filename in `handoffs/handoffs/` matching
-  `^[0-9]{4}(-[0-9]{2}){5}\.md$`, or `none` when there is no such file (R-10).
+  `^[0-9]{4}(-[0-9]{2}){5}\.md$`, or `none` when there is no such file (R-08).
 - `Entries` in `handoffs/HANDOFF.md` equals the number of files matching that regex.
 - The template `handoffs/handoffs/yyyy-mm-dd-hh-mm-ss.md` is excluded from the count and is
-  never modified (R-09).
+  never modified (R-07).
 - Every index row in `HANDOFF.md` has a file, and every entry file has an index row.
-- An entry file and the matching `HANDOFF.md` update are written as one operation (R-06).
-- Existing entries are never changed (R-08).
+- An entry file and the matching `HANDOFF.md` update are written as one operation (R-05).
+- Existing entries are never changed (P-02).
 
 ## Validate (shared; run first in both procedures)
 
@@ -40,7 +40,7 @@ are relative to `.agents/`. Exact formats are in `references/formats.md`.
    section 9 contains the four keys `Resume at`, `State`, `First action`, `Blocked on`.
 
 If any check fails: print `HANDOFF INCONSISTENT: check <n>, expected <x>, found <y>`, write
-nothing, and stop. Tell the human and wait (R-11).
+nothing, and stop. Tell the human and wait (R-09).
 
 ## Procedure: pickup
 
@@ -56,12 +56,12 @@ nothing, and stop. Tell the human and wait (R-11).
 
 1. Run Validate.
 2. Derive the stem with `date -u +%Y-%m-%d-%H-%M-%S`. If a file with that stem exists, or the
-   stem is not greater than the current HEAD stem, wait one second and derive again (R-10).
+   stem is not greater than the current HEAD stem, wait one second and derive again (R-08).
 3. Copy `handoffs/handoffs/yyyy-mm-dd-hh-mm-ss.md` to `handoffs/handoffs/<stem>.md`.
 4. Fill all ten sections of the new file. Section 2 is the previous HEAD's section 9 copied
    verbatim, or `Fresh project, no previous HEAD.` Section 1 `Previous HEAD` is the old HEAD
    stem or `none`. Section 10 has at least one row; label anything not run as unverified
-   (R-21).
+   (P-07).
 5. Self-check the new file: no `<` placeholder remains outside code spans and comments, all
    ten headings are present in order, section 9 has exactly the four keys, section 10 has at
    least one row. On failure delete the new file, report, and stop.
@@ -69,7 +69,7 @@ nothing, and stop. Tell the human and wait (R-11).
    timestamp, Entries plus one, Last writer, Integrity, Status `closed`, and a new index row
    prepended (Title and Session status from section 1, First action from section 9).
 7. Run Validate again. On failure report the mismatch and stop; do not delete the entry, the
-   human decides (R-08, R-11).
+   human decides (P-02, R-09).
 8. Tell the human the new stem and the First action recorded in section 9.
 
 ## Refusals
@@ -82,8 +82,8 @@ nothing, and stop. Tell the human and wait (R-11).
 | Index and files disagree | `HANDOFF INCONSISTENT: check 5 …` | Add or remove the index row by hand, re-run pickup. |
 | Template altered or missing | `HANDOFF INCONSISTENT: check 6 …` | Restore the template from the reference design. |
 | HEAD entry malformed | `HANDOFF INCONSISTENT: check 7 …` | Fix the entry's headings or section 9 by hand, re-run pickup. |
-| Asked to edit a past entry | `Refused: entries are immutable (R-08).` | Ask for a new entry that references the old one. |
-| Asked to write handoffs/ outside this skill | `Refused: handoffs/ is accessed only through xewe_handoff (R-05).` | Run the handoff procedure instead. |
+| Asked to edit a past entry | `Refused: entries are immutable (P-02).` | Ask for a new entry that references the old one. |
+| Asked to write handoffs/ outside this skill | `Refused: handoffs/ is accessed only through xewe_handoff (R-04).` | Run the handoff procedure instead. |
 
 ## Files
 

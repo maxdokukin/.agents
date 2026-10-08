@@ -1,6 +1,6 @@
 # Handoff <yyyy-mm-dd-hh-mm-ss>
 
-<!-- Blank template. Copy to a new UTC-stamped filename; never edit this file (R-09).
+<!-- Blank template. Copy to a new UTC-stamped filename; never edit this file (R-07).
      Replace every <placeholder>. Section numbers and headings are fixed. -->
 
 ## 1. Session metadata
@@ -38,8 +38,8 @@
   **Why:** <the reason>
   **Alternatives rejected:** <what else was considered, or "none">
 
-<!-- Human-instructed deviations from a rule go here, quoting the instruction (R-04).
-     Proposed new or changed rules go here (R-24). -->
+<!-- Human-instructed deviations from a rule go here, quoting the instruction (R-03).
+     Proposed new or changed rules go here (P-10). -->
 
 ## 7. Philosophical choices
 

@@ -42,7 +42,7 @@ for f in "$dest/handoffs/handoffs"/*; do
 done
 ts=$(date -u +"%Y-%m-%d %H:%M:%S")
 cat > "$dest/handoffs/HANDOFF.md" <<HEAD
-Updated $ts UTC by xewe_setup setup. Read and written only by the xewe_handoff skill (R-05, R-06).
+Updated $ts UTC by xewe_setup setup. Read and written only by the xewe_handoff skill (R-04, R-05).
 
 # HANDOFF
 
@@ -64,7 +64,7 @@ status. It holds no session content; that lives in the entry files.
 
 ## Template
 
-- \`handoffs/handoffs/yyyy-mm-dd-hh-mm-ss.md\` — blank entry; copy it, never edit it (R-09).
+- \`handoffs/handoffs/yyyy-mm-dd-hh-mm-ss.md\` — blank entry; copy it, never edit it (R-07).
 HEAD
 
 # 3. Fill the project name in AGENTS.md.
@@ -74,4 +74,5 @@ sed "s|<project>|$name|g" "$dest/AGENTS.md" > "$dest/AGENTS.md.tmp" && mv "$dest
 echo "---"
 sh "$here/check.sh" "$dest"
 echo "---"
-echo "Done. Point the agent at $dest/AGENTS.md. Its first action is the pickup procedure of xewe_handoff."
+echo "Done. Review $dest/PREFERENCES.md now: these defaults are yours to change (R-15). RULES.md stays as shipped."
+echo "Point the agent at $dest/AGENTS.md. Its first action is the pickup procedure of xewe_handoff."

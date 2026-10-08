@@ -1,8 +1,8 @@
 # Skills
 
 Every skill available in this project is listed here. Nothing else under `skillset/` exists
-for you: discover skills from this table only (R-12), and never use a skill that has no row
-(R-13). This file is a router. The skills themselves live one level down.
+for you: discover skills from this table only (R-10), and never use a skill that has no row
+(R-11). This file is a router. The skills themselves live one level down.
 
 ## Pick a skill
 
@@ -25,7 +25,7 @@ between is project work.
 ## Adding a skill
 
 1. Create `skillset/<name>/SKILL.md` with frontmatter `name: <name>` and a folded
-   `description` (R-14). Copy `skillset/sample_skill/assets/skill-template.md` to start, and run
+   `description` (R-12). Copy `skillset/sample_skill/assets/skill-template.md` to start, and run
    `skillset/sample_skill/scripts/check_frontmatter.sh <folder>` before registering.
 2. Add a row to "Pick a skill" and a line to "Registry" above.
-3. Do both in the same change (R-13).
+3. Do both in the same change (R-11).

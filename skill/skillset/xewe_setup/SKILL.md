@@ -19,12 +19,14 @@ runs. All paths below are relative to `.agents/` unless stated.
 
 ## Invariants
 
-- Setup never overwrites. If `<target>/.agents` exists, it stops and points at `check` (R-23).
+- Setup never overwrites. If `<target>/.agents` exists, it stops and points at `check` (P-09).
+- Setup is the only moment preferences change without a quoted human instruction (R-15).
+  Rules never change.
 - A new copy starts with zero handoff entries. The reference's own entries are its history,
-  not the new project's (R-05 permits this initialization; afterwards only `xewe_handoff`
+  not the new project's (R-04 permits this initialization; afterwards only `xewe_handoff`
   touches `handoffs/`).
 - The copy carries no git metadata. The target project's own version control owns it.
-- `check` is read-only. It reports; it never repairs (R-11).
+- `check` is read-only. It reports; it never repairs (R-09).
 
 ## Procedure: setup
 
@@ -37,8 +39,12 @@ runs. All paths below are relative to `.agents/` unless stated.
    `<target>/.agents`, strips `.git`, deletes every handoff entry but the template, writes the
    zero-entry `HANDOFF.md`, fills the project name, and runs `check.sh` on the result.
 4. Read the script output. A line starting with `FAIL` means nothing was changed, or the
-   check found a problem in the copy; report it verbatim and stop (R-22).
-5. Tell the human where the folder is and that an agent opening the project should read
+   check found a problem in the copy; report it verbatim and stop (P-08).
+5. Walk through `PREFERENCES.md` in the new copy with the human (R-15). List each preference
+   in one line and ask which to change or drop. Apply the answers to the copy's
+   `PREFERENCES.md` only: edit or delete the text, keep the remaining IDs unchanged. Never
+   touch `RULES.md`. If the human has no changes, say so and leave the defaults.
+6. Tell the human where the folder is and that an agent opening the project should read
    `.agents/AGENTS.md` and run the pickup procedure of `xewe_handoff` first. Do not write a
    handoff entry in the new project; its first real session does that.
 
@@ -47,7 +53,7 @@ runs. All paths below are relative to `.agents/` unless stated.
 1. Run `scripts/check.sh <project-or-.agents-path>`. With no argument it checks the current
    directory.
 2. Report the `ok` and `FAIL` lines. On any `FAIL`, do not fix anything; the human decides
-   what to repair (R-11). The most common repairs are listed in the refusals table below.
+   what to repair (R-09). The most common repairs are listed in the refusals table below.
 
 ## What setup changes in the copy
 
@@ -56,6 +62,7 @@ runs. All paths below are relative to `.agents/` unless stated.
 | `AGENTS.md` title | `<project>` placeholder | the project name |
 | `handoffs/handoffs/` | template plus the reference's entries | template only |
 | `handoffs/HANDOFF.md` | populated head | zero-entry head, Status `empty` |
+| `PREFERENCES.md` | shipped defaults | the human's choices from step 5 |
 | `.git/` | present when cloned | removed |
 | Everything else | — | byte-identical |
 
@@ -67,7 +74,7 @@ runs. All paths below are relative to `.agents/` unless stated.
 | Target is inside the reference `.agents` | `FAIL: target … is inside the reference .agents` | Give a project path outside this folder. |
 | Source is not an `.agents` reference | `FAIL: … is not an .agents reference` | Run the script from a clone of the reference, or pass `--source`. |
 | `check` reports a HANDOFF.md mismatch | `FAIL  HEAD is …` or `FAIL  Entries is …` | Fix `HANDOFF.md` by hand to match the files, re-run `check`. |
-| `check` reports an unregistered skill | `FAIL  <name> not registered in skill/SKILL.md` | Add the row and registry line (R-13). |
+| `check` reports an unregistered skill | `FAIL  <name> not registered in skill/SKILL.md` | Add the row and registry line (R-11). |
 
 ## Files
 

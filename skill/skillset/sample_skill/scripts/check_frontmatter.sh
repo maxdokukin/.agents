@@ -1,5 +1,5 @@
 #!/usr/bin/env sh
-# Validate a skill folder against R-14: SKILL.md exists, frontmatter has exactly
+# Validate a skill folder against R-12: SKILL.md exists, frontmatter has exactly
 # `name` and `description`, and `name` equals the folder name.
 # Usage: check_frontmatter.sh <skill-folder>
 set -eu

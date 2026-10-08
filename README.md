@@ -1,6 +1,6 @@
 # XeWe Agentic Workspace (XAW)
 
-For humans. Agents read `AGENTS.md` instead and are told not to open this file (R-02).
+For humans. Agents read `AGENTS.md` instead and are told not to open this file (P-01).
 
 ## Summary
 
@@ -20,8 +20,9 @@ leaving a trace the next one can use.
 
 Three parts, each with a single entry file:
 
-- **Boundaries: `RULES.md`.** Enumerated rules R-01 to R-24, absolute, cited by ID. Only
-  humans edit them; agents propose changes in a handoff (R-18, R-24).
+- **Boundaries: `RULES.md` and `PREFERENCES.md`.** Rules R-01 to R-15 are root: absolute,
+  identical in every project, never edited. Preferences P-01 to P-10 are user-level: shipped
+  defaults that `xewe_setup` lets you change at install time (R-15). Both are cited by ID.
 - **Context: `handoffs/`.** Every session begins by picking up the newest entry and ends by
   writing a new one. An entry records work done, files touched, decisions, open threads, and
   a four-key exit point the next session reads mechanically. `HANDOFF.md` is the head node:
@@ -47,11 +48,13 @@ enough to know the state of the directory.
    `.agents/`.
 3. Point the agent at `<project>/.agents/AGENTS.md`. Its first action is the `pickup`
    procedure of `xewe_handoff`; its last is `handoff`.
-4. Later, `xewe_setup/scripts/check.sh <project-dir>` verifies a copy without changing it.
+4. `PREFERENCES.md` in the copy is yours. The `setup` procedure walks through it; edit it
+   later by hand whenever the project's policy changes. `RULES.md` stays as shipped.
+5. Later, `xewe_setup/scripts/check.sh <project-dir>` verifies a copy without changing it.
 
 To add a skill, copy `skill/skillset/sample_skill/assets/skill-template.md` into a new folder,
 run `sample_skill/scripts/check_frontmatter.sh` on it, and add it to `skill/SKILL.md` in the
-same change (R-13).
+same change (R-11).
 
 ## Details
 
@@ -61,7 +64,8 @@ same change (R-13).
 .agents/
   AGENTS.md                       agent entry point: read order, boundaries, session shape
   README.md                       this file
-  RULES.md                        rules R-01 … R-24
+  RULES.md                        root rules R-01 … R-15, absolute
+  PREFERENCES.md                  user preferences P-01 … P-10, changed at setup
   handoffs/
     HANDOFF.md                    head node: HEAD, status, index
     handoffs/
@@ -80,7 +84,8 @@ same change (R-13).
 ```
 open project
   └─ AGENTS.md            read order, boundaries
-       ├─ RULES.md        the 24 rules
+       ├─ RULES.md        root rules, absolute
+       ├─ PREFERENCES.md  user rules, set during xewe_setup
        ├─ HANDOFF.md      via xewe_handoff pickup: validate, open HEAD, quote exit point
        └─ SKILL.md        pick tools
             │
@@ -96,7 +101,7 @@ open project
 | Convention | Rule |
 |---|---|
 | Timestamps | UTC. Entry filenames `yyyy-mm-dd-hh-mm-ss.md`; HEAD is the lexically greatest one, so text order is time order. |
-| Integrity | `xewe_handoff` validates HEAD, count, index, template, and entry shape before every read or write, and stops rather than repairs on mismatch (R-11). |
-| Skills | Folder named after the skill; `SKILL.md` frontmatter has only `name` and `description`; detail goes in `references/`, `scripts/`, `assets/`, `evals/` (R-14). |
-| Rule IDs | Stable forever; append, never renumber. `grep -rohE 'R-[0-9]{2}' .agents \| sort -u` lists every citation. |
-| Paths | Relative to `.agents/` or the project root, so the folder stays portable (R-20). |
+| Integrity | `xewe_handoff` validates HEAD, count, index, template, and entry shape before every read or write, and stops rather than repairs on mismatch (R-09). |
+| Skills | Folder named after the skill; `SKILL.md` frontmatter has only `name` and `description`; detail goes in `references/`, `scripts/`, `assets/`, `evals/` (R-12). |
+| Rule IDs | `R-NN` in RULES.md, `P-NN` in PREFERENCES.md. Stable forever; append, never renumber. `grep -rohE '[RP]-[0-9]{2}' .agents \| sort -u` lists every citation. |
+| Paths | Relative to `.agents/` or the project root, so the folder stays portable (P-06). |

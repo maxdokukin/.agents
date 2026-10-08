@@ -5,7 +5,7 @@ description: >
   a lean SKILL.md body, and bundled scripts/, references/, assets/ and evals/. Use it whenever
   you are writing, reviewing, or restructuring a skill in this project, even if the request
   only says "add a procedure" or "document how we do X". Never run it as a project task
-  (R-16). Triggers: new skill, skill format, skill template, "what goes in a skill",
+  (P-04). Triggers: new skill, skill format, skill template, "what goes in a skill",
   "how do I write a skill", SKILL.md, skill review.
 ---
 
@@ -37,7 +37,7 @@ to be. Keeping each level to its job is what keeps a skill cheap to carry and re
 
 ## Frontmatter
 
-- `name` equals the folder name (R-14).
+- `name` equals the folder name (R-12).
 - `description` says what the skill does and when to use it, and errs on the side of
   triggering: models tend to under-use skills, so list the phrasings and situations that should
   bring it in, including ones that do not name the skill.
@@ -78,17 +78,17 @@ deterministic work; and `evals/evals.json` with three realistic prompts.
 
 Run `scripts/check_frontmatter.sh <skill-folder>` before registering a skill. It confirms the
 frontmatter has exactly `name` and `description` and that `name` matches the folder, which
-is what the router relies on (R-13, R-14).
+is what the router relies on (R-11, R-12).
 
 ## Refusals
 
 | Condition | Message | What the human does |
 |---|---|---|
-| Asked to run sample_skill as a project task | `Refused: sample_skill is a reference example (R-16).` | Pick a real skill from skill/SKILL.md. |
+| Asked to run sample_skill as a project task | `Refused: sample_skill is a reference example (P-04).` | Pick a real skill from skill/SKILL.md. |
 
 ## Files
 
-- `scripts/check_frontmatter.sh` — validates a skill folder's frontmatter against R-14.
+- `scripts/check_frontmatter.sh` — validates a skill folder's frontmatter against R-12.
 - `references/example-reference.md` — what reference files are for and how to link them.
 - `assets/skill-template.md` — blank SKILL.md to copy when starting a new skill.
 - `evals/evals.json` — the test-prompt format Anthropic's skill tooling reads.
