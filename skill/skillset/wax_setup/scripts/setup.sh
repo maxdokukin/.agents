@@ -1,9 +1,10 @@
 #!/usr/bin/env sh
-# xaw_setup: create a fresh .agents/ in a project from this reference design.
+# wax_setup: create a fresh .agents/ in a project from this reference design.
 # Usage: setup.sh [target-project-dir] [--name <project-name>] [--source <reference-.agents>]
 # Defaults: target = current directory, name = basename of target, source = the .agents this script lives in.
 set -eu
 here=$(cd "$(dirname "$0")" && pwd -P)
+. "$here/lib.sh"
 source=$(cd "$here/../../../.." && pwd)
 target=""; name=""
 while [ $# -gt 0 ]; do
@@ -36,43 +37,15 @@ cp -R "$source" "$target/.agents"
 rm -rf "$target/.agents/.git"
 dest="$target/.agents"
 
-# 2. Reset handoffs to the zero-entry state: keep only the template.
-for f in "$dest/handoffs/handoffs"/*; do
-  [ "$(basename "$f")" = "yyyy-mm-dd-hh-mm-ss.md" ] || rm -f "$f"
-done
-ts=$(date -u +"%Y-%m-%d %H:%M:%S")
-cat > "$dest/handoffs/HANDOFF.md" <<HEAD
-Updated $ts UTC by xaw_setup setup. Read and written only by the xaw_handoff skill (R-04, R-05).
-
-# HANDOFF
-
-Head node of the handoff directory. It points at the newest entry and states the directory's
-status. It holds no session content; that lives in the entry files.
-
-## Head
-
-- **HEAD:** none
-- **HEAD timestamp:** none
-- **Entries:** 0
-- **Last writer:** none
-- **Integrity:** consistent — HEAD is the newest entry file; entry count equals file count; every index row exists on disk. Validated at last write.
-- **Status:** empty — no entries yet; the first handoff creates HEAD.
-
-## Index (newest first)
-
-(no entries)
-
-## Template
-
-- \`handoffs/handoffs/yyyy-mm-dd-hh-mm-ss.md\` — blank entry; copy it, never edit it (R-07).
-HEAD
-
-# 3. Fill the project name in AGENTS.md.
+# 2. Fill the project name in AGENTS.md.
 sed "s|<project>|$name|g" "$dest/AGENTS.md" > "$dest/AGENTS.md.tmp" && mv "$dest/AGENTS.md.tmp" "$dest/AGENTS.md"
+
+# 3. Reset handoffs to the genesis state: the template plus one seeded genesis entry.
+seed_genesis "$dest" "$name"
 
 # 4. Verify the result.
 echo "---"
 sh "$here/check.sh" "$dest"
 echo "---"
 echo "Done. Review $dest/PREFERENCES.md now: these defaults are yours to change (R-15). RULES.md stays as shipped."
-echo "Point the agent at $dest/AGENTS.md. Its first action is the pickup procedure of xaw_handoff."
+echo "Point the agent at $dest/AGENTS.md. Its first action is the pickup procedure of wax_handoff, which will tell it to explore the project first."
