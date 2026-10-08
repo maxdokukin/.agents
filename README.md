@@ -22,11 +22,11 @@ Three parts, each with a single entry file:
 
 - **Boundaries: `RULES.md` and `PREFERENCES.md`.** Rules R-01 to R-15 are root: absolute,
   identical in every project, never edited. Preferences P-01 to P-10 are user-level: shipped
-  defaults that `xewe_setup` lets you change at install time (R-15). Both are cited by ID.
+  defaults that `xaw_setup` lets you change at install time (R-15). Both are cited by ID.
 - **Context: `handoffs/`.** Every session begins by picking up the newest entry and ends by
   writing a new one. An entry records work done, files touched, decisions, open threads, and
   a four-key exit point the next session reads mechanically. `HANDOFF.md` is the head node:
-  HEAD, status, index. One skill, `xewe_handoff`, is the only door into the directory.
+  HEAD, status, index. One skill, `xaw_handoff`, is the only door into the directory.
 - **Tools: `skill/`.** `SKILL.md` is the router (a "you want to… / read" table plus a
   registry); skills live one level down as folders. `sample_skill` shows the full anatomy
   Anthropic recommends and is never run.
@@ -40,17 +40,17 @@ enough to know the state of the directory.
 1. Clone this repository, or open a project that already contains it.
 2. Run the setup script against the target project:
    ```
-   .agents/skill/skillset/xewe_setup/scripts/setup.sh <project-dir> --name <project>
+   .agents/skill/skillset/xaw_setup/scripts/setup.sh <project-dir> --name <project>
    ```
-   Or ask an agent to run the `setup` procedure of `xewe_setup`. Either way the script copies
+   Or ask an agent to run the `setup` procedure of `xaw_setup`. Either way the script copies
    the folder, strips git metadata, resets `handoffs/` to the zero-entry state, fills the
    project name in `AGENTS.md`, and verifies the result. It refuses to overwrite an existing
    `.agents/`.
 3. Point the agent at `<project>/.agents/AGENTS.md`. Its first action is the `pickup`
-   procedure of `xewe_handoff`; its last is `handoff`.
+   procedure of `xaw_handoff`; its last is `handoff`.
 4. `PREFERENCES.md` in the copy is yours. The `setup` procedure walks through it; edit it
    later by hand whenever the project's policy changes. `RULES.md` stays as shipped.
-5. Later, `xewe_setup/scripts/check.sh <project-dir>` verifies a copy without changing it.
+5. Later, `xaw_setup/scripts/check.sh <project-dir>` verifies a copy without changing it.
 
 To add a skill, copy `skill/skillset/sample_skill/assets/skill-template.md` into a new folder,
 run `sample_skill/scripts/check_frontmatter.sh` on it, and add it to `skill/SKILL.md` in the
@@ -74,8 +74,8 @@ same change (R-11).
   skill/
     SKILL.md                      router: the only index of skills
     skillset/
-      xewe_handoff/               owns handoffs/: pickup, handoff, formats reference
-      xewe_setup/                 creates .agents/ in a project: setup, check
+      xaw_handoff/               owns handoffs/: pickup, handoff, formats reference
+      xaw_setup/                 creates .agents/ in a project: setup, check
       sample_skill/               reference anatomy: SKILL.md, scripts/, references/, assets/, evals/
 ```
 
@@ -85,15 +85,15 @@ same change (R-11).
 open project
   └─ AGENTS.md            read order, boundaries
        ├─ RULES.md        root rules, absolute
-       ├─ PREFERENCES.md  user rules, set during xewe_setup
-       ├─ HANDOFF.md      via xewe_handoff pickup: validate, open HEAD, quote exit point
+       ├─ PREFERENCES.md  user rules, set during xaw_setup
+       ├─ HANDOFF.md      via xaw_handoff pickup: validate, open HEAD, quote exit point
        └─ SKILL.md        pick tools
             │
             ▼
           work            project tasks, skills as needed
             │
             ▼
-  xewe_handoff handoff    copy template → fill → write <utc-stamp>.md → advance HEAD
+  xaw_handoff handoff    copy template → fill → write <utc-stamp>.md → advance HEAD
 ```
 
 ### Conventions
@@ -101,7 +101,7 @@ open project
 | Convention | Rule |
 |---|---|
 | Timestamps | UTC. Entry filenames `yyyy-mm-dd-hh-mm-ss.md`; HEAD is the lexically greatest one, so text order is time order. |
-| Integrity | `xewe_handoff` validates HEAD, count, index, template, and entry shape before every read or write, and stops rather than repairs on mismatch (R-09). |
+| Integrity | `xaw_handoff` validates HEAD, count, index, template, and entry shape before every read or write, and stops rather than repairs on mismatch (R-09). |
 | Skills | Folder named after the skill; `SKILL.md` frontmatter has only `name` and `description`; detail goes in `references/`, `scripts/`, `assets/`, `evals/` (R-12). |
 | Rule IDs | `R-NN` in RULES.md, `P-NN` in PREFERENCES.md. Stable forever; append, never renumber. `grep -rohE '[RP]-[0-9]{2}' .agents \| sort -u` lists every citation. |
 | Paths | Relative to `.agents/` or the project root, so the folder stays portable (P-06). |

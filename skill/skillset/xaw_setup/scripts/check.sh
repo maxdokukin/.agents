@@ -1,5 +1,5 @@
 #!/usr/bin/env sh
-# xewe_setup: verify an existing .agents/ folder (read-only).
+# xaw_setup: verify an existing .agents/ folder (read-only).
 # Usage: check.sh [project-dir | .agents-dir]   (default: current directory)
 # Exits 1 if any check fails.
 set -u
@@ -33,7 +33,7 @@ for d in "$root"/skill/skillset/*/; do
   grep -q "skillset/$n/SKILL.md" "$root/skill/SKILL.md" && ok "$n registered in skill/SKILL.md" || fail "$n not registered in skill/SKILL.md"
 done
 
-# Handoffs: the same checks xewe_handoff runs before every read or write (R-05, R-08, R-09)
+# Handoffs: the same checks xaw_handoff runs before every read or write (R-05, R-08, R-09)
 H="$root/handoffs/HANDOFF.md"
 for k in HEAD "HEAD timestamp" Entries "Last writer" Integrity Status; do
   grep -q "^- \*\*$k:\*\*" "$H" 2>/dev/null || fail "HANDOFF.md missing key '$k'"

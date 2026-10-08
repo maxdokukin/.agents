@@ -1,4 +1,4 @@
-Updated 2026-10-08 06:34:41 UTC by xewe_handoff handoff. Read and written only by the xewe_handoff skill (R-04, R-05).
+Updated 2026-10-08 06:42:36 UTC by xaw_handoff handoff. Read and written only by the xaw_handoff skill (R-04, R-05).
 
 # HANDOFF
 
@@ -7,19 +7,20 @@ status. It holds no session content; that lives in the entry files.
 
 ## Head
 
-- **HEAD:** handoffs/handoffs/2026-10-08-06-34-41.md
-- **HEAD timestamp:** 2026-10-08 06:34:41 UTC
-- **Entries:** 4
-- **Last writer:** xewe_handoff handoff — Claude Code
+- **HEAD:** handoffs/handoffs/2026-10-08-06-42-36.md
+- **HEAD timestamp:** 2026-10-08 06:42:36 UTC
+- **Entries:** 5
+- **Last writer:** xaw_handoff handoff — Claude Code
 - **Integrity:** consistent — HEAD is the newest entry file; entry count equals file count; every index row exists on disk. Validated at last write.
-- **Status:** closed — resume with the pickup procedure of xewe_handoff.
+- **Status:** closed — resume with the pickup procedure of xaw_handoff.
 
 ## Index (newest first)
 
+- **2026-10-08-06-42-36** — Renamed skills to the xaw_ prefix — complete — next: Commit and push both working trees, then run setup.sh against a real project.
 - **2026-10-08-06-34-41** — Split rules into root RULES.md and user-level PREFERENCES.md — complete — next: Commit and push the working tree, then run setup.sh against a real project and walk through PREFERENCES.md with the human.
-- **2026-10-08-05-21-39** — Added xewe_setup skill (setup and check scripts) — complete — next: Commit and push the working tree, then run setup.sh against a real project.
+- **2026-10-08-05-21-39** — Added xaw_setup skill (setup and check scripts) — complete — next: Commit and push the working tree, then run setup.sh against a real project.
 - **2026-10-08-05-10-52** — Reworked README into paper form and replaced skill_2 with sample_skill — complete — next: Commit and push the working tree, then copy `.agents/` into a project and run the pickup procedure there.
-- **2026-10-07-21-10-00** — Created the .agents reference design — complete — next: Copy `.agents/` into a project and run the pickup procedure of xewe_handoff there.
+- **2026-10-07-21-10-00** — Created the .agents reference design — complete — next: Copy `.agents/` into a project and run the pickup procedure of xaw_handoff there.
 
 ## Template
 

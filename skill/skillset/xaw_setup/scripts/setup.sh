@@ -1,5 +1,5 @@
 #!/usr/bin/env sh
-# xewe_setup: create a fresh .agents/ in a project from this reference design.
+# xaw_setup: create a fresh .agents/ in a project from this reference design.
 # Usage: setup.sh [target-project-dir] [--name <project-name>] [--source <reference-.agents>]
 # Defaults: target = current directory, name = basename of target, source = the .agents this script lives in.
 set -eu
@@ -42,7 +42,7 @@ for f in "$dest/handoffs/handoffs"/*; do
 done
 ts=$(date -u +"%Y-%m-%d %H:%M:%S")
 cat > "$dest/handoffs/HANDOFF.md" <<HEAD
-Updated $ts UTC by xewe_setup setup. Read and written only by the xewe_handoff skill (R-04, R-05).
+Updated $ts UTC by xaw_setup setup. Read and written only by the xaw_handoff skill (R-04, R-05).
 
 # HANDOFF
 
@@ -75,4 +75,4 @@ echo "---"
 sh "$here/check.sh" "$dest"
 echo "---"
 echo "Done. Review $dest/PREFERENCES.md now: these defaults are yours to change (R-15). RULES.md stays as shipped."
-echo "Point the agent at $dest/AGENTS.md. Its first action is the pickup procedure of xewe_handoff."
+echo "Point the agent at $dest/AGENTS.md. Its first action is the pickup procedure of xaw_handoff."

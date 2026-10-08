@@ -1,5 +1,5 @@
 ---
-name: xewe_setup
+name: xaw_setup
 description: >
   Set up the .agents folder for a project: copy this reference design into a target project
   (a path you are given, or the project you are standing in), reset handoffs to the zero-entry
@@ -10,11 +10,11 @@ description: >
   Triggers: setup, bootstrap, init, install .agents, new project, check .agents, verify setup.
 ---
 
-# xewe_setup
+# xaw_setup
 
 Creates a fresh `.agents/` in a project from this reference design, and checks existing ones.
 Two procedures: `setup` and `check`. The deterministic work lives in two scripts under
-`scripts/`, so every copy comes out identical and the checks are the same ones `xewe_handoff`
+`scripts/`, so every copy comes out identical and the checks are the same ones `xaw_handoff`
 runs. All paths below are relative to `.agents/` unless stated.
 
 ## Invariants
@@ -23,7 +23,7 @@ runs. All paths below are relative to `.agents/` unless stated.
 - Setup is the only moment preferences change without a quoted human instruction (R-15).
   Rules never change.
 - A new copy starts with zero handoff entries. The reference's own entries are its history,
-  not the new project's (R-04 permits this initialization; afterwards only `xewe_handoff`
+  not the new project's (R-04 permits this initialization; afterwards only `xaw_handoff`
   touches `handoffs/`).
 - The copy carries no git metadata. The target project's own version control owns it.
 - `check` is read-only. It reports; it never repairs (R-09).
@@ -45,7 +45,7 @@ runs. All paths below are relative to `.agents/` unless stated.
    `PREFERENCES.md` only: edit or delete the text, keep the remaining IDs unchanged. Never
    touch `RULES.md`. If the human has no changes, say so and leave the defaults.
 6. Tell the human where the folder is and that an agent opening the project should read
-   `.agents/AGENTS.md` and run the pickup procedure of `xewe_handoff` first. Do not write a
+   `.agents/AGENTS.md` and run the pickup procedure of `xaw_handoff` first. Do not write a
    handoff entry in the new project; its first real session does that.
 
 ## Procedure: check

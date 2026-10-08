@@ -11,7 +11,7 @@ instructions conflict, R-03 decides.
   `RULES.md`, `PREFERENCES.md`, `handoffs/HANDOFF.md` (through R-04), `skill/SKILL.md`. Do no
   project work before all five have been read.
 - **R-02 Pickup before work.** The first action after reading is the `pickup` procedure of the
-  `xewe_handoff` skill. Restate the previous exit point to the human before touching anything
+  `xaw_handoff` skill. Restate the previous exit point to the human before touching anything
   else.
 - **R-03 Precedence.** An explicit human instruction given in the current session outranks
   `RULES.md`, which outranks `PREFERENCES.md`, which outranks `AGENTS.md`, which outranks
@@ -21,9 +21,9 @@ instructions conflict, R-03 decides.
 
 ## 2. Handoffs
 
-- **R-04 Access only through `xewe_handoff`.** Nothing under `handoffs/` is read, created,
+- **R-04 Access only through `xaw_handoff`.** Nothing under `handoffs/` is read, created,
   edited, moved, or deleted except by executing the `pickup` or `handoff` procedure of the
-  `xewe_handoff` skill. The single exception is `xewe_setup` initializing the zero-entry state
+  `xaw_handoff` skill. The single exception is `xaw_setup` initializing the zero-entry state
   of a brand-new copy of `.agents/`; it never touches an existing `handoffs/`.
 - **R-05 HEAD moves with the directory.** Writing an entry under `handoffs/handoffs/` and
   updating `handoffs/HANDOFF.md` are one operation. Never do one without the other.
@@ -57,6 +57,6 @@ instructions conflict, R-03 decides.
   `HANDOFF.md`, and every `SKILL.md` keep their names and locations.
 - **R-15 Rules are root, preferences are user-level.** `RULES.md` is never edited by an agent
   or at install time. `PREFERENCES.md` ships with defaults; they are changed only during the
-  `setup` procedure of `xewe_setup`, or later on an explicit human instruction quoted in that
+  `setup` procedure of `xaw_setup`, or later on an explicit human instruction quoted in that
   session's handoff. Preferences are cited by ID (`P-01` …) and bind exactly like rules until
   changed.

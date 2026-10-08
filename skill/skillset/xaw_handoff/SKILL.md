@@ -1,5 +1,5 @@
 ---
-name: xewe_handoff
+name: xaw_handoff
 description: >
   Read and write the project's handoff directory (handoffs/ under .agents/). This is the only
   permitted way to touch handoffs. Use when a session starts (pickup: validate HANDOFF.md, open
@@ -9,7 +9,7 @@ description: >
   we stop", "what is open", "write the handoff", "update HANDOFF.md", resume work.
 ---
 
-# xewe_handoff
+# xaw_handoff
 
 Owns `handoffs/`. Nothing else reads or writes there (R-04). Two procedures: `pickup` at the
 start of a session and `handoff` at the end. Both begin with the same validation. All paths
@@ -83,7 +83,7 @@ nothing, and stop. Tell the human and wait (R-09).
 | Template altered or missing | `HANDOFF INCONSISTENT: check 6 …` | Restore the template from the reference design. |
 | HEAD entry malformed | `HANDOFF INCONSISTENT: check 7 …` | Fix the entry's headings or section 9 by hand, re-run pickup. |
 | Asked to edit a past entry | `Refused: entries are immutable (P-02).` | Ask for a new entry that references the old one. |
-| Asked to write handoffs/ outside this skill | `Refused: handoffs/ is accessed only through xewe_handoff (R-04).` | Run the handoff procedure instead. |
+| Asked to write handoffs/ outside this skill | `Refused: handoffs/ is accessed only through xaw_handoff (R-04).` | Run the handoff procedure instead. |
 
 ## Files
 

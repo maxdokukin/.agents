@@ -11,7 +11,7 @@ in that order. Read it as described below before doing anything else in the repo
    like rules until a human changes them; cite them by ID too.
 3. **`handoffs/HANDOFF.md` — context.** The head of the work record: where the last session
    stopped and what is open. Reach it only through the `pickup` procedure of the
-   `xewe_handoff` skill (R-04), because the directory has invariants that the skill checks
+   `xaw_handoff` skill (R-04), because the directory has invariants that the skill checks
    before you rely on anything in it.
 4. **`skill/SKILL.md` — tools.** The only index of skills (R-10). Pick skills from its table,
    never by browsing `skill/skillset/`.
@@ -23,8 +23,8 @@ in that order. Read it as described below before doing anything else in the repo
 
 ## Session shape
 
-- **Pickup → work → handoff.** Start with `xewe_handoff` pickup, do the work, end with
-  `xewe_handoff` handoff. A session that changed anything and did not end with a handoff is
+- **Pickup → work → handoff.** Start with `xaw_handoff` pickup, do the work, end with
+  `xaw_handoff` handoff. A session that changed anything and did not end with a handoff is
   incomplete (R-06); say so rather than letting it pass.
 
 ## Never do these without being asked

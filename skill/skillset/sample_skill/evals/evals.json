@@ -9,7 +9,7 @@
     },
     {
       "id": 2,
-      "prompt": "review skill/skillset/xewe_handoff/SKILL.md and tell me if it follows our skill conventions",
+      "prompt": "review skill/skillset/xaw_handoff/SKILL.md and tell me if it follows our skill conventions",
       "expected_output": "A review that checks frontmatter keys, name/folder match, body length, imperative numbered procedures, refusals table, and file list, citing R-13 and R-14 where relevant.",
       "files": []
     }
