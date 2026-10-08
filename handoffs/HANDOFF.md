@@ -1,4 +1,4 @@
-Updated 2026-10-08 06:42:36 UTC by xaw_handoff handoff. Read and written only by the xaw_handoff skill (R-04, R-05).
+Updated 2026-10-08 06:44:14 UTC by xaw_handoff handoff. Read and written only by the xaw_handoff skill (R-04, R-05).
 
 # HANDOFF
 
@@ -7,15 +7,16 @@ status. It holds no session content; that lives in the entry files.
 
 ## Head
 
-- **HEAD:** handoffs/handoffs/2026-10-08-06-42-36.md
-- **HEAD timestamp:** 2026-10-08 06:42:36 UTC
-- **Entries:** 5
+- **HEAD:** handoffs/handoffs/2026-10-08-06-44-14.md
+- **HEAD timestamp:** 2026-10-08 06:44:14 UTC
+- **Entries:** 6
 - **Last writer:** xaw_handoff handoff — Claude Code
 - **Integrity:** consistent — HEAD is the newest entry file; entry count equals file count; every index row exists on disk. Validated at last write.
 - **Status:** closed — resume with the pickup procedure of xaw_handoff.
 
 ## Index (newest first)
 
+- **2026-10-08-06-44-14** — Loaded xaw skills into Claude Code and fixed setup.sh path resolution — complete — next: Commit and push .agents, then decide on argument aliases for xaw_handoff.
 - **2026-10-08-06-42-36** — Renamed skills to the xaw_ prefix — complete — next: Commit and push both working trees, then run setup.sh against a real project.
 - **2026-10-08-06-34-41** — Split rules into root RULES.md and user-level PREFERENCES.md — complete — next: Commit and push the working tree, then run setup.sh against a real project and walk through PREFERENCES.md with the human.
 - **2026-10-08-05-21-39** — Added xaw_setup skill (setup and check scripts) — complete — next: Commit and push the working tree, then run setup.sh against a real project.
