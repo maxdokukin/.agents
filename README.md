@@ -1,12 +1,13 @@
-# .agents — reference design
+# XeWe Agentic Workspace (XAW)
 
 For humans. Agents read `AGENTS.md` instead and are told not to open this file (R-02).
 
 ## Summary
 
-A self-contained folder that gives a coding agent **boundaries** (rules), **context** (a
-record of past sessions), and **tools** (skills). Plain markdown, a fixed layout, a few
-invariants. Copy it into any project as-is.
+XAW is a self-contained `.agents/` folder that gives a coding agent **boundaries** (rules),
+**context** (a record of past sessions), and **tools** (skills). Plain markdown, a fixed
+layout, a few invariants. Copy it into any project as-is. This repository is the reference
+design.
 
 ## Problem
 
