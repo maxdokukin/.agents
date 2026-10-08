@@ -47,11 +47,12 @@ conflict, R-04 decides. If a situation is not covered, R-24 applies.
   updating the table is one change.
 - **R-14 Skill shape.** A skill is a folder containing `SKILL.md` whose YAML frontmatter has
   exactly two keys, `name` and `description`, and whose `name` equals the folder name.
-  Supporting files sit flat beside `SKILL.md` or under `references/` or `scripts/`.
+  Supporting files sit flat beside `SKILL.md` or under `references/`, `scripts/`, `assets/`,
+  or `evals/`.
 - **R-15 Follow procedures literally.** The steps of a skill are executed in order. A skipped
   or altered step is recorded in the session's handoff.
-- **R-16 `skill_2` is an example.** It exists to show the shape of a skill. Never execute it
-  as a task.
+- **R-16 `sample_skill` is an example.** It exists to show the shape of a skill. Never execute
+  it as a task.
 
 ## 4. Structure of `.agents/` (Immutable)
 
