@@ -1,4 +1,4 @@
-Updated 2026-10-08 16:42:01 UTC by wax_setup setup. Read and written only by the wax_handoff skill (R-04, R-05).
+Updated 2026-10-08 16:42:01 UTC by wax_handoff handoff. Read and written only by the wax_handoff skill (R-04, R-05).
 
 # HANDOFF
 
@@ -10,7 +10,8 @@ status. It holds no session content; that lives in the entry files.
 - **HEAD:** handoffs/handoffs/2026-10-08-16-42-01.md
 - **HEAD timestamp:** 2026-10-08 16:42:01 UTC
 - **Entries:** 1
-- **Last writer:** wax_setup setup
+- **Last writer:** none
+- **Resume:** none
 - **Integrity:** consistent — HEAD is the newest entry file; entry count equals file count; every index row exists on disk. Validated at last write.
 - **Status:** closed — resume with the pickup procedure of wax_handoff.
 

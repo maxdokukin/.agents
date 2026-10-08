@@ -23,9 +23,9 @@ instructions conflict, R-03 decides.
 
 - **R-04 Access only through `wax_handoff`.** Nothing under `handoffs/` is read, created,
   edited, moved, or deleted except by executing the `pickup` or `handoff` procedure of the
-  `wax_handoff` skill. The single exception is `wax_setup` initializing the genesis state
-  (template plus one seeded genesis entry) of a brand-new copy of `.agents/`; it never touches
-  an existing `handoffs/`.
+  `wax_handoff` skill. The single exception is `wax_setup` filling the project name into the
+  shipped genesis entry of a brand-new copy of `.agents/`; it never touches an existing
+  `handoffs/`.
 - **R-05 HEAD moves with the directory.** Writing an entry under `handoffs/handoffs/` and
   updating `handoffs/HANDOFF.md` are one operation. Never do one without the other.
 - **R-06 Every session ends with a handoff.** A session that produced changes and no handoff

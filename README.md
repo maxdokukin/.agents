@@ -1,8 +1,7 @@
 # WAX Agentic Workspace
 
 Version **WAX 1.0**. The name is XAW (XeWe Agentic Workspace) read backwards: WAX makes the
-agentic experience smooth. `AGENTS.md` carries the same version string, and `check.sh` fails
-when the two disagree.
+agentic experience smooth. `AGENTS.md` carries the same version string.
 
 For humans. Agents read `AGENTS.md` instead and are told not to open this file (P-01).
 
@@ -29,8 +28,9 @@ Three parts, each with a single entry file:
   defaults that `wax_setup` lets you change at install time (R-15). Both are cited by ID.
 - **Context: `handoffs/`.** Every session begins by picking up the newest entry and ends by
   writing a new one. An entry records work done, files touched, decisions, open threads, and
-  a four-key exit point the next session reads mechanically. `HANDOFF.md` is the head node:
-  HEAD, status, index. One skill, `wax_handoff`, is the only door into the directory.
+  a four-key exit point the next session reads mechanically, plus the identity and session id
+  of the agent that wrote it. `HANDOFF.md` is the head node: HEAD, status, index, and a
+  `Resume` line you can paste to reopen the session that wrote HEAD. One skill, `wax_handoff`, is the only door into the directory.
 - **Tools: `skill/`.** `SKILL.md` is the router (a "you want to… / read" table plus a
   registry); skills live one level down as folders. `sample_skill` shows the full anatomy
   Anthropic recommends and is never run.
@@ -49,24 +49,16 @@ enough to know the state of the directory.
    .agents/skill/skillset/wax_setup/scripts/setup.sh <project-dir> --name <project>
    ```
    Or ask an agent to run the `setup` procedure of `wax_setup`. Either way the script copies
-   the folder, strips git metadata, fills the project name in `AGENTS.md`, seeds `handoffs/`
-   with a single genesis entry, and verifies the result. It refuses to overwrite an existing
-   `.agents/`. The genesis entry is the first HEAD: its exit point tells the first session to
-   explore the project briefly and report back before doing any work, so no project ever
-   starts from another project's history.
+   the folder, strips git metadata, fills the project name in `AGENTS.md` and in the genesis
+   entry, and verifies the result. It refuses to overwrite an existing `.agents/`. The genesis
+   entry ships with this repository and is the first HEAD: its exit point tells the first
+   session to explore the project briefly and report back before doing any work, so no
+   project ever starts from another project's history.
 3. Point the agent at `<project>/.agents/AGENTS.md`. Its first action is the `pickup`
    procedure of `wax_handoff`; its last is `handoff`.
 4. `PREFERENCES.md` in the copy is yours. The `setup` procedure walks through it; edit it
    later by hand whenever the project's policy changes. `RULES.md` stays as shipped.
 5. Later, `wax_setup/scripts/check.sh <project-dir>` verifies a copy without changing it.
-
-### Developing the reference
-
-The reference is developed in a private repository (`.agents-wd`) that keeps its own handoff
-history, like any project. The public repository is an export of it: run
-`skill/skillset/wax_setup/scripts/publish.sh <public-clone>` from the private tree, review the
-diff, commit, push. The export carries no history, only the genesis entry, so what you clone
-is exactly what setup produces.
 
 To add a skill, copy `skill/skillset/sample_skill/assets/skill-template.md` into a new folder,
 run `sample_skill/scripts/check_frontmatter.sh` on it, and add it to `skill/SKILL.md` in the
@@ -91,8 +83,7 @@ same change (R-11).
     SKILL.md                      router: the only index of skills
     skillset/
       wax_handoff/                owns handoffs/: pickup, handoff, formats reference
-      wax_setup/                  creates .agents/ in a project: setup, check; publish for maintainers
-        assets/genesis.md         the first entry every fresh copy starts from
+      wax_setup/                  creates .agents/ in a project: setup, check
       sample_skill/               reference anatomy: SKILL.md, scripts/, references/, assets/, evals/
 ```
 

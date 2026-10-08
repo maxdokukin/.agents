@@ -8,6 +8,7 @@
 - **Entry:** <yyyy-mm-dd-hh-mm-ss>
 - **Title:** <one line, what this session was about>
 - **Agent:** <agent name and model>
+- **Session:** <host and session id, e.g. "claude-code 0f1e2d3c-…", or "unknown">
 - **Human:** <name, role, or "unknown">
 - **Previous HEAD:** <stem of the entry picked up, or "none">
 - **Session status:** <complete | partial>
