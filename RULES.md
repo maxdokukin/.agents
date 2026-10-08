@@ -23,7 +23,8 @@ conflict, R-04 decides. If a situation is not covered, R-24 applies.
 
 - **R-05 Access only through `xewe_handoff`.** Nothing under `handoffs/` is read, created,
   edited, moved, or deleted except by executing the `pickup` or `handoff` procedure of the
-  `xewe_handoff` skill.
+  `xewe_handoff` skill. The single exception is `xewe_setup` initializing the zero-entry
+  state of a brand-new copy of `.agents/`; it never touches an existing `handoffs/`.
 - **R-06 HEAD moves with the directory.** Writing an entry under `handoffs/handoffs/` and
   updating `handoffs/HANDOFF.md` are one operation. Never do one without the other.
 - **R-07 One entry per session.** Every session ends with exactly one `handoff`. A session that

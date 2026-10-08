@@ -35,13 +35,18 @@ enough to know the state of the directory.
 
 ## How to use
 
-1. `cp -r .agents <project>/.agents`
-2. Replace `<project>` in the title of `AGENTS.md`.
-3. Keep the sample entry in `handoffs/handoffs/` as a worked example, or delete it and reset
-   `HANDOFF.md` to the zero-entry block in
-   `skill/skillset/xewe_handoff/references/formats.md`.
-4. Point the agent at `AGENTS.md`. Its first action is the `pickup` procedure of
-   `xewe_handoff`; its last is `handoff`.
+1. Clone this repository, or open a project that already contains it.
+2. Run the setup script against the target project:
+   ```
+   .agents/skill/skillset/xewe_setup/scripts/setup.sh <project-dir> --name <project>
+   ```
+   Or ask an agent to run the `setup` procedure of `xewe_setup`. Either way the script copies
+   the folder, strips git metadata, resets `handoffs/` to the zero-entry state, fills the
+   project name in `AGENTS.md`, and verifies the result. It refuses to overwrite an existing
+   `.agents/`.
+3. Point the agent at `<project>/.agents/AGENTS.md`. Its first action is the `pickup`
+   procedure of `xewe_handoff`; its last is `handoff`.
+4. Later, `xewe_setup/scripts/check.sh <project-dir>` verifies a copy without changing it.
 
 To add a skill, copy `skill/skillset/sample_skill/assets/skill-template.md` into a new folder,
 run `sample_skill/scripts/check_frontmatter.sh` on it, and add it to `skill/SKILL.md` in the
@@ -65,14 +70,24 @@ same change (R-13).
     SKILL.md                      router: the only index of skills
     skillset/
       xewe_handoff/               owns handoffs/: pickup, handoff, formats reference
+      xewe_setup/                 creates .agents/ in a project: setup, check
       sample_skill/               reference anatomy: SKILL.md, scripts/, references/, assets/, evals/
 ```
 
 ### Session lifecycle
 
 ```
-AGENTS.md → RULES.md → xewe_handoff pickup (validate, open HEAD, quote exit point) → SKILL.md
-    → work → xewe_handoff handoff (copy template, fill, write <utc-stamp>.md, advance HEAD)
+open project
+  └─ AGENTS.md            read order, boundaries
+       ├─ RULES.md        the 24 rules
+       ├─ HANDOFF.md      via xewe_handoff pickup: validate, open HEAD, quote exit point
+       └─ SKILL.md        pick tools
+            │
+            ▼
+          work            project tasks, skills as needed
+            │
+            ▼
+  xewe_handoff handoff    copy template → fill → write <utc-stamp>.md → advance HEAD
 ```
 
 ### Conventions
