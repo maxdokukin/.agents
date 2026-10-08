@@ -11,7 +11,7 @@ instructions conflict, R-03 decides.
   `RULES.md`, `PREFERENCES.md`, `handoffs/HANDOFF.md` (through R-04), `skill/SKILL.md`. Do no
   project work before all five have been read.
 - **R-02 Pickup before work.** The first action after reading is the `pickup` procedure of the
-  `xaw_handoff` skill. Restate the previous exit point to the human before touching anything
+  `wax_handoff` skill. Restate the previous exit point to the human before touching anything
   else.
 - **R-03 Precedence.** An explicit human instruction given in the current session outranks
   `RULES.md`, which outranks `PREFERENCES.md`, which outranks `AGENTS.md`, which outranks
@@ -21,10 +21,11 @@ instructions conflict, R-03 decides.
 
 ## 2. Handoffs
 
-- **R-04 Access only through `xaw_handoff`.** Nothing under `handoffs/` is read, created,
+- **R-04 Access only through `wax_handoff`.** Nothing under `handoffs/` is read, created,
   edited, moved, or deleted except by executing the `pickup` or `handoff` procedure of the
-  `xaw_handoff` skill. The single exception is `xaw_setup` initializing the zero-entry state
-  of a brand-new copy of `.agents/`; it never touches an existing `handoffs/`.
+  `wax_handoff` skill. The single exception is `wax_setup` initializing the genesis state
+  (template plus one seeded genesis entry) of a brand-new copy of `.agents/`; it never touches
+  an existing `handoffs/`.
 - **R-05 HEAD moves with the directory.** Writing an entry under `handoffs/handoffs/` and
   updating `handoffs/HANDOFF.md` are one operation. Never do one without the other.
 - **R-06 Every session ends with a handoff.** A session that produced changes and no handoff
@@ -57,6 +58,6 @@ instructions conflict, R-03 decides.
   `HANDOFF.md`, and every `SKILL.md` keep their names and locations.
 - **R-15 Rules are root, preferences are user-level.** `RULES.md` is never edited by an agent
   or at install time. `PREFERENCES.md` ships with defaults; they are changed only during the
-  `setup` procedure of `xaw_setup`, or later on an explicit human instruction quoted in that
+  `setup` procedure of `wax_setup`, or later on an explicit human instruction quoted in that
   session's handoff. Preferences are cited by ID (`P-01` …) and bind exactly like rules until
   changed.

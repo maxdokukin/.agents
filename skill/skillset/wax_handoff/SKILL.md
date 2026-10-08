@@ -1,5 +1,5 @@
 ---
-name: xaw_handoff
+name: wax_handoff
 description: >
   Read and write the project's handoff directory (handoffs/ under .agents/). This is the only
   permitted way to touch handoffs. Use when a session starts (pickup: validate HANDOFF.md, open
@@ -9,7 +9,7 @@ description: >
   we stop", "what is open", "write the handoff", "update HANDOFF.md", resume work.
 ---
 
-# xaw_handoff
+# wax_handoff
 
 Owns `handoffs/`. Nothing else reads or writes there (R-04). Two procedures: `pickup` at the
 start of a session and `handoff` at the end. Both begin with the same validation. All paths
@@ -45,7 +45,8 @@ nothing, and stop. Tell the human and wait (R-09).
 ## Procedure: pickup
 
 1. Run Validate.
-2. If `Entries` is 0, report "Fresh project, no previous HEAD." and end.
+2. If `Entries` is 0, report "Fresh project, no previous HEAD." and end. (A fresh copy normally
+   has one entry, the genesis entry seeded by `wax_setup`; it is read like any other.)
 3. Read the HEAD file.
 4. Print verbatim, in this order: section 9 (Exit point), section 8 (Open threads), and from
    section 1 the Title and Session status.
@@ -76,16 +77,16 @@ nothing, and stop. Tell the human and wait (R-09).
 
 | Condition | Message | What the human does |
 |---|---|---|
-| HANDOFF.md missing or missing keys | `HANDOFF INCONSISTENT: check 1 …` | Restore HANDOFF.md from the zero-entry block in references/formats.md, or from a backup. |
+| HANDOFF.md missing or missing keys | `HANDOFF INCONSISTENT: check 1 …` | Restore HANDOFF.md from the genesis block in references/formats.md, or from a backup. |
 | HEAD is not the newest file | `HANDOFF INCONSISTENT: check 3 …` | Inspect the directory, set HEAD by hand, re-run pickup. |
 | Entry count mismatch | `HANDOFF INCONSISTENT: check 4 …` | Count files, correct `Entries` by hand, re-run pickup. |
 | Index and files disagree | `HANDOFF INCONSISTENT: check 5 …` | Add or remove the index row by hand, re-run pickup. |
 | Template altered or missing | `HANDOFF INCONSISTENT: check 6 …` | Restore the template from the reference design. |
 | HEAD entry malformed | `HANDOFF INCONSISTENT: check 7 …` | Fix the entry's headings or section 9 by hand, re-run pickup. |
 | Asked to edit a past entry | `Refused: entries are immutable (P-02).` | Ask for a new entry that references the old one. |
-| Asked to write handoffs/ outside this skill | `Refused: handoffs/ is accessed only through xaw_handoff (R-04).` | Run the handoff procedure instead. |
+| Asked to write handoffs/ outside this skill | `Refused: handoffs/ is accessed only through wax_handoff (R-04).` | Run the handoff procedure instead. |
 
 ## Files
 
 - `references/formats.md` — exact field formats for HANDOFF.md, entry files, index rows, and
-  the zero-entry state.
+  the genesis state.

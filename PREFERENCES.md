@@ -1,7 +1,7 @@
 # PREFERENCES.md — user-level rules for agents in this project
 
-These are the defaults that ship with the XeWe Agentic Workspace. Unlike `RULES.md`, they are
-yours to change: the `setup` procedure of `xaw_setup` walks through them when `.agents/` is
+These are the defaults that ship with the WAX Agentic Workspace. Unlike `RULES.md`, they are
+yours to change: the `setup` procedure of `wax_setup` walks through them when `.agents/` is
 installed, and a human can change them later (R-15). Until changed, each one binds exactly like
 a rule and is cited by ID (`P-01` … `P-10`). A preference never overrides a rule (R-03). Keep
 the IDs stable: edit or delete a preference's text, never renumber the rest.

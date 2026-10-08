@@ -1,4 +1,4 @@
-# xaw_handoff — exact formats
+# wax_handoff — exact formats
 
 Precise formats for everything the skill reads or writes. `SKILL.md` stays procedural and
 points here. All paths are relative to `.agents/`.
@@ -22,13 +22,87 @@ Line 1 is always the Updated line. Then the title, a two-line note, and three se
 
 | Field | Value | Derived from |
 |---|---|---|
-| Updated line | `Updated <yyyy-mm-dd hh:mm:ss> UTC by xaw_handoff handoff. Read and written only by the xaw_handoff skill (R-04, R-05).` | time of the write |
+| Updated line | `Updated <yyyy-mm-dd hh:mm:ss> UTC by wax_handoff handoff. Read and written only by the wax_handoff skill (R-04, R-05).` (`by wax_setup setup.` when seeded) | time of the write |
 | HEAD | `handoffs/handoffs/<stem>.md`, or `none` | greatest entry filename |
 | HEAD timestamp | `<yyyy-mm-dd hh:mm:ss> UTC`, or `none` | HEAD stem |
 | Entries | integer | count of files matching the regex |
-| Last writer | `xaw_handoff handoff — <agent name>`, or `none` | the writing agent |
+| Last writer | `wax_handoff handoff — <agent name>`, `wax_setup setup` (genesis), or `none` | the writing agent |
 | Integrity | `consistent — HEAD is the newest entry file; entry count equals file count; every index row exists on disk. Validated at last write.` | the validate step, which must pass before writing |
-| Status | `closed — resume with the pickup procedure of xaw_handoff.` or `empty — no entries yet; the first handoff creates HEAD.` | Entries > 0 or Entries = 0 |
+| Status | `closed — resume with the pickup procedure of wax_handoff.` or `empty — no entries yet; the first handoff creates HEAD.` | Entries > 0 or Entries = 0 |
+
+The Integrity field only ever holds the `consistent` sentence. The skill never writes an
+inconsistent state; it reports and stops instead (R-09).
+
+### Index row
+
+```
+- **<stem>** — <Title from section 1> — <Session status from section 1> — next: <First action from section 9>
+```
+
+Newest first. One row per entry file, one entry file per row.
+
+### Genesis state
+
+A fresh copy of `.agents/` carries exactly one entry: the genesis entry, seeded by `wax_setup`
+from `skill/skillset/wax_setup/assets/genesis.md` under a UTC stem taken at install time. Its
+exit point tells the first session to explore the project before doing any work. The head
+block of a fresh copy is:
+
+```
+Updated <yyyy-mm-dd hh:mm:ss> UTC by wax_setup setup. Read and written only by the wax_handoff skill (R-04, R-05).
+
+# HANDOFF
+
+Head node of the handoff directory. It points at the newest entry and states the directory's
+status. It holds no session content; that lives in the entry files.
+
+## Head
+
+- **HEAD:** handoffs/handoffs/<stem>.md
+- **HEAD timestamp:** <yyyy-mm-dd hh:mm:ss> UTC
+- **Entries:** 1
+- **Last writer:** wax_setup setup
+- **Integrity:** consistent — HEAD is the newest entry file; entry count equals file count; every index row exists on disk. Validated at last write.
+- **Status:** closed — resume with the pickup procedure of wax_handoff.
+
+## Index (newest first)
+
+- **<stem>** — GENESIS: workspace installed, project not yet explored — complete — next: Explore the project briefly and report what you found to the human before doing any work.
+
+## Template
+
+- `handoffs/handoffs/yyyy-mm-dd-hh-mm-ss.md` — blank entry; copy it, never edit it (R-07).
+```
+
+A copy with `Entries: 0` (HEAD `none`, Status `empty — no entries yet; the first handoff
+creates HEAD.`) is still legal; pickup reports "Fresh project, no previous HEAD." and ends.
+
+## Entry filename
+
+- Pattern: `yyyy-mm-dd-hh-mm-ss.md`, 24-hour clock, zero padded, UTC.
+- Regex used for counting and sorting: `^[0-9]{4}(-[0-9]{2}){5}\.md$`
+- Derivation: `date -u +%Y-%m-%d-%H-%M-%S`
+- The stem is the filename without `.md`. The stem is also the entry's title suffix, its
+  `Entry:` field, and its index key.
+- Collision rule: if a file with the derived stem already exists, or the stem is not lexically
+  greater than the current HEAD stem, wait one second and derive again. Never overwrite, never
+  backdate (R-08).
+- The template `handoffs/handoffs/yyyy-mm-dd-hh-mm-ss.md` does not match the regex and is
+  never counted as an entry.
+
+## HANDOFF.md
+
+Line 1 is always the Updated line. Then the title, a two-line note, and three sections.
+
+| Field | Value | Derived from |
+|---|---|---|
+| Updated line | `Updated <yyyy-mm-dd hh:mm:ss> UTC by wax_handoff handoff. Read and written only by the wax_handoff skill (R-04, R-05).` (`by wax_setup setup.` when seeded) | time of the write |
+| HEAD | `handoffs/handoffs/<stem>.md`, or `none` | greatest entry filename |
+| HEAD timestamp | `<yyyy-mm-dd hh:mm:ss> UTC`, or `none` | HEAD stem |
+| Entries | integer | count of files matching the regex |
+| Last writer | `wax_handoff handoff — <agent name>`, `wax_setup setup` (genesis), or `none` | the writing agent |
+| Integrity | `consistent — HEAD is the newest entry file; entry count equals file count; every index row exists on disk. Validated at last write.` | the validate step, which must pass before writing |
+| Status | `closed — resume with the pickup procedure of wax_handoff.` or `empty — no entries yet; the first handoff creates HEAD.` | Entries > 0 or Entries = 0 |
 
 The Integrity field only ever holds the `consistent` sentence. The skill never writes an
 inconsistent state; it reports and stops instead (R-09).
@@ -46,7 +120,7 @@ Newest first. One row per entry file, one entry file per row.
 A fresh copy of `.agents/` with no entries carries exactly this head block:
 
 ```
-Updated <yyyy-mm-dd hh:mm:ss> UTC by xaw_handoff handoff. Read and written only by the xaw_handoff skill (R-04, R-05).
+Updated <yyyy-mm-dd hh:mm:ss> UTC by wax_handoff handoff. Read and written only by the wax_handoff skill (R-04, R-05).
 
 # HANDOFF
 

@@ -1,4 +1,4 @@
-Updated 2026-10-08 06:44:14 UTC by xaw_handoff handoff. Read and written only by the xaw_handoff skill (R-04, R-05).
+Updated 2026-10-08 16:42:01 UTC by wax_setup setup. Read and written only by the wax_handoff skill (R-04, R-05).
 
 # HANDOFF
 
@@ -7,21 +7,16 @@ status. It holds no session content; that lives in the entry files.
 
 ## Head
 
-- **HEAD:** handoffs/handoffs/2026-10-08-06-44-14.md
-- **HEAD timestamp:** 2026-10-08 06:44:14 UTC
-- **Entries:** 6
-- **Last writer:** xaw_handoff handoff — Claude Code
+- **HEAD:** handoffs/handoffs/2026-10-08-16-42-01.md
+- **HEAD timestamp:** 2026-10-08 16:42:01 UTC
+- **Entries:** 1
+- **Last writer:** wax_setup setup
 - **Integrity:** consistent — HEAD is the newest entry file; entry count equals file count; every index row exists on disk. Validated at last write.
-- **Status:** closed — resume with the pickup procedure of xaw_handoff.
+- **Status:** closed — resume with the pickup procedure of wax_handoff.
 
 ## Index (newest first)
 
-- **2026-10-08-06-44-14** — Loaded xaw skills into Claude Code and fixed setup.sh path resolution — complete — next: Commit and push .agents, then decide on argument aliases for xaw_handoff.
-- **2026-10-08-06-42-36** — Renamed skills to the xaw_ prefix — complete — next: Commit and push both working trees, then run setup.sh against a real project.
-- **2026-10-08-06-34-41** — Split rules into root RULES.md and user-level PREFERENCES.md — complete — next: Commit and push the working tree, then run setup.sh against a real project and walk through PREFERENCES.md with the human.
-- **2026-10-08-05-21-39** — Added xaw_setup skill (setup and check scripts) — complete — next: Commit and push the working tree, then run setup.sh against a real project.
-- **2026-10-08-05-10-52** — Reworked README into paper form and replaced skill_2 with sample_skill — complete — next: Commit and push the working tree, then copy `.agents/` into a project and run the pickup procedure there.
-- **2026-10-07-21-10-00** — Created the .agents reference design — complete — next: Copy `.agents/` into a project and run the pickup procedure of xaw_handoff there.
+- **2026-10-08-16-42-01** — GENESIS: workspace installed, project not yet explored — complete — next: Explore the project briefly and report what you found to the human before doing any work.
 
 ## Template
 
