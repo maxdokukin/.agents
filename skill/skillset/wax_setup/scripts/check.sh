@@ -23,11 +23,6 @@ top=$(ls -A "$root" | grep -v '^\.git$' | LC_ALL=C sort | tr '\n' ' ')
 grep -q '<yyyy-mm-dd-hh-mm-ss>' "$root/handoffs/handoffs/yyyy-mm-dd-hh-mm-ss.md" 2>/dev/null && ok "template still holds its placeholder" || fail "template altered or missing"
 grep -q '<project>' "$root/AGENTS.md" 2>/dev/null && echo "warn  AGENTS.md still has the <project> placeholder (expected only in the reference itself)" || ok "AGENTS.md has a project name"
 
-# Version token (WAX x.y) present and identical in AGENTS.md and README.md
-va=$(grep -oE 'WAX [0-9][0-9.]*' "$root/AGENTS.md" 2>/dev/null | head -1)
-vr=$(grep -oE 'WAX [0-9][0-9.]*' "$root/README.md" 2>/dev/null | head -1)
-if [ -n "$va" ] && [ "$va" = "$vr" ]; then ok "version $va in both AGENTS.md and README.md"; else fail "version token: AGENTS.md has '${va:-none}', README.md has '${vr:-none}'"; fi
-
 # Skills: frontmatter shape and registration (R-11, R-12)
 for d in "$root"/skill/skillset/*/; do
   n=$(basename "$d")

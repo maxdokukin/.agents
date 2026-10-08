@@ -28,8 +28,8 @@ are relative to `.agents/`. Exact formats are in `references/formats.md`.
 
 ## Validate (shared; run first in both procedures)
 
-1. `handoffs/HANDOFF.md` exists and its `## Head` section has all six keys: HEAD,
-   HEAD timestamp, Entries, Last writer, Integrity, Status.
+1. `handoffs/HANDOFF.md` exists and its `## Head` section has all seven keys: HEAD,
+   HEAD timestamp, Entries, Last writer, Resume, Integrity, Status.
 2. List files in `handoffs/handoffs/` matching the entry regex and sort them. The last one is
    the newest, or there are none.
 3. HEAD equals `handoffs/handoffs/<newest>`, or both are `none`.
@@ -46,7 +46,7 @@ nothing, and stop. Tell the human and wait (R-09).
 
 1. Run Validate.
 2. If `Entries` is 0, report "Fresh project, no previous HEAD." and end. (A fresh copy normally
-   has one entry, the genesis entry seeded by `wax_setup`; it is read like any other.)
+   has one entry, the shipped genesis entry; it is read like any other.)
 3. Read the HEAD file.
 4. Print verbatim, in this order: section 9 (Exit point), section 8 (Open threads), and from
    section 1 the Title and Session status.
@@ -61,13 +61,15 @@ nothing, and stop. Tell the human and wait (R-09).
 3. Copy `handoffs/handoffs/yyyy-mm-dd-hh-mm-ss.md` to `handoffs/handoffs/<stem>.md`.
 4. Fill all ten sections of the new file. Section 2 is the previous HEAD's section 9 copied
    verbatim, or `Fresh project, no previous HEAD.` Section 1 `Previous HEAD` is the old HEAD
-   stem or `none`. Section 10 has at least one row; label anything not run as unverified
+   stem or `none`. Section 1 `Session` is this session's host and id, found as
+   `references/formats.md` describes, or `unknown`. Section 10 has at least one row; label anything not run as unverified
    (P-07).
 5. Self-check the new file: no `<` placeholder remains outside code spans and comments, all
    ten headings are present in order, section 9 has exactly the four keys, section 10 has at
    least one row. On failure delete the new file, report, and stop.
 6. Rewrite `handoffs/HANDOFF.md` per `references/formats.md`: Updated line, HEAD, HEAD
-   timestamp, Entries plus one, Last writer, Integrity, Status `closed`, and a new index row
+   timestamp, Entries plus one, Last writer, Resume (the command that reopens this session,
+   derived from the Session key, or `none`), Integrity, Status `closed`, and a new index row
    prepended (Title and Session status from section 1, First action from section 9).
 7. Run Validate again. On failure report the mismatch and stop; do not delete the entry, the
    human decides (P-02, R-09).
