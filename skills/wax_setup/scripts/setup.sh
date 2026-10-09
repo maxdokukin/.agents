@@ -4,7 +4,7 @@
 # Defaults: target = current directory, name = basename of target, source = the .agents this script lives in.
 set -eu
 here=$(cd "$(dirname "$0")" && pwd -P)
-source=$(cd "$here/../../../.." && pwd)
+source=$(cd "$here/../../.." && pwd)
 target=""; name=""
 while [ $# -gt 0 ]; do
   case "$1" in

@@ -78,13 +78,13 @@ deterministic work; and `evals/evals.json` with three realistic prompts.
 
 Run `scripts/check_frontmatter.sh <skill-folder>` before registering a skill. It confirms the
 frontmatter has exactly `name` and `description` and that `name` matches the folder, which
-is what the router relies on (R-11, R-12).
+is what discovery relies on (R-10, R-12).
 
 ## Refusals
 
 | Condition | Message | What the human does |
 |---|---|---|
-| Asked to run sample_skill as a project task | `Refused: sample_skill is a reference example (P-04).` | Pick a real skill from skill/SKILL.md. |
+| Asked to run sample_skill as a project task | `Refused: sample_skill is a reference example (P-04).` | Pick a real skill from `skills/`. |
 
 ## Files
 

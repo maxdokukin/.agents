@@ -1,6 +1,6 @@
 # WAX Agentic Workspace
 
-Version **WAX 1.0**. The name is XAW (XeWe Agentic Workspace) read backwards: WAX makes the
+Version **WAX 1.1**. The name is XAW (XeWe Agentic Workspace) read backwards: WAX makes the
 agentic experience smooth. `AGENTS.md` carries the same version string.
 
 For humans. Agents read `AGENTS.md` instead and are told not to open this file (P-01).
@@ -31,13 +31,14 @@ Three parts, each with a single entry file:
   a four-key exit point the next session reads mechanically, plus the identity and session id
   of the agent that wrote it. `HANDOFF.md` is the head node: HEAD, status, index, and a
   `Resume` line you can paste to reopen the session that wrote HEAD. One skill, `wax_handoff`, is the only door into the directory.
-- **Tools: `skill/`.** `SKILL.md` is the router (a "you want to… / read" table plus a
-  registry); skills live one level down as folders. `sample_skill` shows the full anatomy
-  Anthropic recommends and is never run.
+- **Tools: `skills/`.** One folder per skill, each with a `SKILL.md` whose frontmatter
+  (`name`, `description`) is how it is found: the same layout Claude Code uses under
+  `~/.claude/skills/`, so a skill folder copies between the two unchanged. `sample_skill`
+  shows the full anatomy Anthropic recommends and is never run.
 
-Two files are routers, `handoffs/HANDOFF.md` and `skill/SKILL.md`. They point; content lives
-below them, and each is updated in the same change as its directory, so reading the router is
-enough to know the state of the directory.
+One file is a router, `handoffs/HANDOFF.md`. It points; content lives below it, and it is
+updated in the same change as its directory, so reading it is enough to know the state of the
+directory. Skills need no router: their frontmatter is the index.
 
 ## How to use
 
@@ -46,7 +47,7 @@ enough to know the state of the directory.
    works; only the project name in `AGENTS.md` is left for you to fill.
 2. Run the setup script against the target project:
    ```
-   .agents/skill/skillset/wax_setup/scripts/setup.sh <project-dir> --name <project>
+   .agents/skills/wax_setup/scripts/setup.sh <project-dir> --name <project>
    ```
    Or ask an agent to run the `setup` procedure of `wax_setup`. Either way the script copies
    the folder, strips git metadata, fills the project name in `AGENTS.md` and in the genesis
@@ -60,9 +61,9 @@ enough to know the state of the directory.
    later by hand whenever the project's policy changes. `RULES.md` stays as shipped.
 5. Later, `wax_setup/scripts/check.sh <project-dir>` verifies a copy without changing it.
 
-To add a skill, copy `skill/skillset/sample_skill/assets/skill-template.md` into a new folder,
-run `sample_skill/scripts/check_frontmatter.sh` on it, and add it to `skill/SKILL.md` in the
-same change (R-11).
+To add a skill, copy `skills/sample_skill/assets/skill-template.md` into a new folder under
+`skills/` and run `sample_skill/scripts/check_frontmatter.sh` on it. A valid frontmatter is the
+whole registration (R-11).
 
 ## Details
 
@@ -79,12 +80,10 @@ same change (R-11).
     handoffs/
       yyyy-mm-dd-hh-mm-ss.md      blank entry template, literal name, never edited
       <utc-stamp>.md              one immutable entry per session
-  skill/
-    SKILL.md                      router: the only index of skills
-    skillset/
-      wax_handoff/                owns handoffs/: pickup, handoff, formats reference
-      wax_setup/                  creates .agents/ in a project: setup, check
-      sample_skill/               reference anatomy: SKILL.md, scripts/, references/, assets/, evals/
+  skills/                         one folder per skill; frontmatter is the index
+    wax_handoff/                  owns handoffs/: pickup, handoff, formats reference
+    wax_setup/                    creates .agents/ in a project: setup, check
+    sample_skill/                 reference anatomy: SKILL.md, scripts/, references/, assets/, evals/
 ```
 
 ### Session lifecycle
@@ -95,7 +94,7 @@ open project
        ├─ RULES.md        root rules, absolute
        ├─ PREFERENCES.md  user rules, set during wax_setup
        ├─ HANDOFF.md      via wax_handoff pickup: validate, open HEAD, quote exit point
-       └─ SKILL.md        pick tools
+       └─ skills/         pick tools by frontmatter
             │
             ▼
           work            project tasks, skills as needed
