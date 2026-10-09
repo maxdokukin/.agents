@@ -8,14 +8,14 @@ instructions conflict, R-03 decides.
 ## 1. Entry and Read Order
 
 - **R-01 Read order.** On opening the project, read completely and in this order: `AGENTS.md`,
-  `RULES.md`, `PREFERENCES.md`, `handoffs/HANDOFF.md` (through R-04), `skill/SKILL.md`. Do no
-  project work before all five have been read.
+  `RULES.md`, `PREFERENCES.md`, `handoffs/HANDOFF.md` (through R-04), then the frontmatter of
+  every `skills/*/SKILL.md`. Do no project work before all of these have been read.
 - **R-02 Pickup before work.** The first action after reading is the `pickup` procedure of the
   `wax_handoff` skill. Restate the previous exit point to the human before touching anything
   else.
 - **R-03 Precedence.** An explicit human instruction given in the current session outranks
-  `RULES.md`, which outranks `PREFERENCES.md`, which outranks `AGENTS.md`, which outranks
-  `skill/SKILL.md`, which outranks any individual skill. A preference never overrides a rule.
+  `RULES.md`, which outranks `PREFERENCES.md`, which outranks `AGENTS.md`, which outranks any
+  individual skill. A preference never overrides a rule.
   Every human-instructed deviation is recorded in that session's handoff under "Design
   decisions", quoting the instruction.
 
@@ -40,11 +40,12 @@ instructions conflict, R-03 decides.
 
 ## 3. Skills
 
-- **R-10 Route through `skill/SKILL.md`.** Skills are discovered only from its table. Never
-  list or scan `skill/skillset/` directly to find a skill.
-- **R-11 Registered or nonexistent.** Every folder in `skill/skillset/` has a row in
-  `skill/SKILL.md`. A skill without a row must not be used. Adding or removing a skill and
-  updating the table is one change.
+- **R-10 Discover skills from their frontmatter.** A skill is a folder `skills/<name>/` that
+  holds a `SKILL.md`. Skills are found by reading the `name` and `description` frontmatter of
+  every `skills/*/SKILL.md`, the same way the host tool finds them. Nothing else indexes them.
+- **R-11 Valid or nonexistent.** A folder under `skills/` whose `SKILL.md` is missing or fails
+  R-12 is not a skill and must not be used. Adding or removing a skill is one change: the
+  whole folder, with a valid `SKILL.md`.
 - **R-12 Skill shape.** A skill is a folder containing `SKILL.md` whose YAML frontmatter has
   exactly two keys, `name` and `description`, and whose `name` equals the folder name.
   Supporting files sit flat beside `SKILL.md` or under `references/`, `scripts/`, `assets/`,
@@ -53,7 +54,7 @@ instructions conflict, R-03 decides.
 ## 4. Structure of `.agents/`
 
 - **R-13 Fixed top level.** `.agents/` contains exactly `AGENTS.md`, `README.md`, `RULES.md`,
-  `PREFERENCES.md`, `handoffs/`, and `skill/`. Never add, rename, or remove a top-level item.
+  `PREFERENCES.md`, `handoffs/`, and `skills/`. Never add, rename, or remove a top-level item.
 - **R-14 Uppercase names are fixed.** `AGENTS.md`, `RULES.md`, `PREFERENCES.md`, `README.md`,
   `HANDOFF.md`, and every `SKILL.md` keep their names and locations.
 - **R-15 Rules are root, preferences are user-level.** `RULES.md` is never edited by an agent

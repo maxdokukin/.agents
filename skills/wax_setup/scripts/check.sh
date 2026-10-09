@@ -11,26 +11,25 @@ ok()   { echo "ok    $1"; }
 fail() { echo "FAIL  $1"; fails=$((fails+1)); }
 
 # Required files (R-13, R-14)
-for f in AGENTS.md README.md RULES.md PREFERENCES.md handoffs/HANDOFF.md handoffs/handoffs/yyyy-mm-dd-hh-mm-ss.md skill/SKILL.md; do
+for f in AGENTS.md README.md RULES.md PREFERENCES.md handoffs/HANDOFF.md handoffs/handoffs/yyyy-mm-dd-hh-mm-ss.md; do
   [ -f "$root/$f" ] && ok "$f exists" || fail "$f missing"
 done
 
 # Exact top level (R-13)
 top=$(ls -A "$root" | grep -v '^\.git$' | LC_ALL=C sort | tr '\n' ' ')
-[ "$top" = "AGENTS.md PREFERENCES.md README.md RULES.md handoffs skill " ] && ok "top level is exactly the six items" || fail "top level is '$top'"
+[ "$top" = "AGENTS.md PREFERENCES.md README.md RULES.md handoffs skills " ] && ok "top level is exactly the six items" || fail "top level is '$top'"
 
 # Template intact (R-07); project name filled
 grep -q '<yyyy-mm-dd-hh-mm-ss>' "$root/handoffs/handoffs/yyyy-mm-dd-hh-mm-ss.md" 2>/dev/null && ok "template still holds its placeholder" || fail "template altered or missing"
 grep -q '<project>' "$root/AGENTS.md" 2>/dev/null && echo "warn  AGENTS.md still has the <project> placeholder (expected only in the reference itself)" || ok "AGENTS.md has a project name"
 
-# Skills: frontmatter shape and registration (R-11, R-12)
-for d in "$root"/skill/skillset/*/; do
+# Skills: frontmatter shape (R-10, R-11, R-12)
+for d in "$root"/skills/*/; do
   n=$(basename "$d")
   if [ ! -f "$d/SKILL.md" ]; then fail "$n has no SKILL.md"; continue; fi
   keys=$(sed -n '2,/^---$/p' "$d/SKILL.md" | grep -E '^[a-z_]+:' | cut -d: -f1 | sort | tr '\n' ' ')
   [ "$keys" = "description name " ] && ok "$n frontmatter has exactly name and description" || fail "$n frontmatter keys are '$keys'"
   [ "$(sed -n 's/^name: *//p' "$d/SKILL.md")" = "$n" ] && ok "$n name matches folder" || fail "$n name does not match folder"
-  grep -q "skillset/$n/SKILL.md" "$root/skill/SKILL.md" && ok "$n registered in skill/SKILL.md" || fail "$n not registered in skill/SKILL.md"
 done
 
 # Handoffs: the same checks wax_handoff runs before every read or write (R-05, R-08, R-09)

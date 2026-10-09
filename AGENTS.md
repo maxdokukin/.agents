@@ -1,6 +1,6 @@
 # AGENTS.md — <project>
 
-This is **WAX 1.0**, the WAX Agentic Workspace. The rules, preferences, and skills below belong
+This is **WAX 1.1**, the WAX Agentic Workspace. The rules, preferences, and skills below belong
 to this version; `README.md` carries the same version for humans.
 
 This folder is the agentic part of the project. It gives you boundaries, context, and tools,
@@ -16,8 +16,9 @@ in that order. Read it as described below before doing anything else in the repo
    stopped and what is open. Reach it only through the `pickup` procedure of the
    `wax_handoff` skill (R-04), because the directory has invariants that the skill checks
    before you rely on anything in it.
-4. **`skill/SKILL.md` — tools.** The only index of skills (R-10). Pick skills from its table,
-   never by browsing `skill/skillset/`.
+4. **`skills/` — tools.** One folder per skill, each with a `SKILL.md`. Discover them by
+   reading the frontmatter of every `skills/*/SKILL.md` (R-10); a folder without a valid one
+   is not a skill (R-11).
 
 ## Do not read README.md
 
@@ -40,8 +41,8 @@ in that order. Read it as described below before doing anything else in the repo
 
 ## Precedence
 
-- **Human instruction in this session > `RULES.md` > `PREFERENCES.md` > this file >
-  `skill/SKILL.md` > a skill** (R-03). A project's own `.agents/` wins over any organization-level agent file. Record every
+- **Human instruction in this session > `RULES.md` > `PREFERENCES.md` > this file > a
+  skill** (R-03). A project's own `.agents/` wins over any organization-level agent file. Record every
   human-instructed deviation in the handoff, quoting the instruction.
 
 ## Reporting back

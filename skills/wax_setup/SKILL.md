@@ -77,7 +77,7 @@ runs. All paths below are relative to `.agents/` unless stated.
 | Target is inside the reference `.agents` | `FAIL: target … is inside the reference .agents` | Give a project path outside this folder. |
 | Source is not an `.agents` reference | `FAIL: … is not an .agents reference` | Run the script from a clone of the reference, or pass `--source`. |
 | `check` reports a HANDOFF.md mismatch | `FAIL  HEAD is …` or `FAIL  Entries is …` | Fix `HANDOFF.md` by hand to match the files, re-run `check`. |
-| `check` reports an unregistered skill | `FAIL  <name> not registered in skill/SKILL.md` | Add the row and registry line (R-11). |
+| `check` reports a skill with bad frontmatter | `FAIL  <name> frontmatter keys are …` | Make the frontmatter exactly `name` and `description` (R-12). |
 
 ## Files
 
