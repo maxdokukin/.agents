@@ -1,5 +1,5 @@
 #!/usr/bin/env sh
-# wax_setup: create a fresh .agents/ in a project from this reference design.
+# wax_init: create a fresh .agents/ in a project from this reference design.
 # Usage: setup.sh [target-project-dir] [--name <project-name>] [--source <reference-.agents>]
 # Defaults: target = current directory, name = basename of target, source = the .agents this script lives in.
 set -eu

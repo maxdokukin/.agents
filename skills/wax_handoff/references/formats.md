@@ -45,7 +45,7 @@ Newest first. One row per entry file, one entry file per row.
 ### Genesis state
 
 A fresh copy of `.agents/` carries exactly one entry: the genesis entry, shipped in the public
-repository and copied as is by `wax_setup` (which only fills in the project name). Its exit
+repository and copied as is by `wax_init` (which only fills in the project name). Its exit
 point tells the first session to explore the project before doing any work. The head block of
 a fresh copy is:
 

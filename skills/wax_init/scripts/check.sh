@@ -1,5 +1,5 @@
 #!/usr/bin/env sh
-# wax_setup: verify an existing .agents/ folder (read-only).
+# wax_init: verify an existing .agents/ folder (read-only).
 # Usage: check.sh [project-dir | .agents-dir]   (default: current directory)
 # Exits 1 if any check fails.
 set -u

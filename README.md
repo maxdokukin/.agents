@@ -25,7 +25,7 @@ Three parts, each with a single entry file:
 
 - **Boundaries: `RULES.md` and `PREFERENCES.md`.** Rules R-01 to R-15 are root: absolute,
   identical in every project, never edited. Preferences P-01 to P-10 are user-level: shipped
-  defaults that `wax_setup` lets you change at install time (R-15). Both are cited by ID.
+  defaults that `wax_init` lets you change at install time (R-15). Both are cited by ID.
 - **Context: `handoffs/`.** Every session begins by picking up the newest entry and ends by
   writing a new one. An entry records work done, files touched, decisions, open threads, and
   a four-key exit point the next session reads mechanically, plus the identity and session id
@@ -42,24 +42,28 @@ directory. Skills need no router: their frontmatter is the index.
 
 ## How to use
 
-1. Clone this repository, or open a project that already contains it. The public repository
-   ships in the same state setup produces, so a bare clone into `<project>/.agents` also
-   works; only the project name in `AGENTS.md` is left for you to fill.
-2. Run the setup script against the target project:
+1. Copy this prompt to Claude Code to install the skills, once per machine:
+
    ```
-   .agents/skills/wax_setup/scripts/setup.sh <project-dir> --name <project>
+   Install the WAX Agentic Workspace skills. Run exactly these commands and nothing else:
+   if [ -d ~/.wax ]; then git -C ~/.wax pull --ff-only; else git clone --depth 1 https://github.com/maxdokukin/.agents ~/.wax; fi
+   mkdir -p ~/.claude/skills
+   ln -sfn ~/.wax/skills/wax_init ~/.claude/skills/wax_init
+   ln -sfn ~/.wax/skills/wax_handoff ~/.claude/skills/wax_handoff
+   Then tell me to start a new session so the skills are picked up.
    ```
-   Or ask an agent to run the `setup` procedure of `wax_setup`. Either way the script copies
-   the folder, strips git metadata, fills the project name in `AGENTS.md` and in the genesis
-   entry, and verifies the result. It refuses to overwrite an existing `.agents/`. The genesis
-   entry ships with this repository and is the first HEAD: its exit point tells the first
-   session to explore the project briefly and report back before doing any work, so no
-   project ever starts from another project's history.
-3. Point the agent at `<project>/.agents/AGENTS.md`. Its first action is the `pickup`
-   procedure of `wax_handoff`; its last is `handoff`.
-4. `PREFERENCES.md` in the copy is yours. The `setup` procedure walks through it; edit it
-   later by hand whenever the project's policy changes. `RULES.md` stays as shipped.
-5. Later, `wax_setup/scripts/check.sh <project-dir>` verifies a copy without changing it.
+
+   The same prompt updates an existing install.
+2. Go to your project and run `/wax_init`. It copies this folder into `<project>/.agents`,
+   fills the project name, walks you through `PREFERENCES.md`, and verifies the result. It
+   refuses to overwrite an existing `.agents/`.
+
+From then on, every session in that project starts with `/wax_handoff` pickup and ends with
+`/wax_handoff` handoff. The first pickup quotes the genesis entry that ships with this
+repository: explore the project briefly and report back before doing any work, so no project
+ever starts from another project's history. `RULES.md` stays as shipped; `PREFERENCES.md` is
+yours to edit whenever the project's policy changes. `/wax_init check` verifies a copy later
+without changing it.
 
 To add a skill, copy `skills/sample_skill/assets/skill-template.md` into a new folder under
 `skills/` and run `sample_skill/scripts/check_frontmatter.sh` on it. A valid frontmatter is the
@@ -82,7 +86,7 @@ whole registration (R-11).
       <utc-stamp>.md              one immutable entry per session
   skills/                         one folder per skill; frontmatter is the index
     wax_handoff/                  owns handoffs/: pickup, handoff, formats reference
-    wax_setup/                    creates .agents/ in a project: setup, check
+    wax_init/                    creates .agents/ in a project: setup, check
     sample_skill/                 reference anatomy: SKILL.md, scripts/, references/, assets/, evals/
 ```
 
@@ -92,7 +96,7 @@ whole registration (R-11).
 open project
   └─ AGENTS.md            read order, boundaries
        ├─ RULES.md        root rules, absolute
-       ├─ PREFERENCES.md  user rules, set during wax_setup
+       ├─ PREFERENCES.md  user rules, set during wax_init
        ├─ HANDOFF.md      via wax_handoff pickup: validate, open HEAD, quote exit point
        └─ skills/         pick tools by frontmatter
             │

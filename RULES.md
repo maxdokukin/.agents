@@ -23,7 +23,7 @@ instructions conflict, R-03 decides.
 
 - **R-04 Access only through `wax_handoff`.** Nothing under `handoffs/` is read, created,
   edited, moved, or deleted except by executing the `pickup` or `handoff` procedure of the
-  `wax_handoff` skill. The single exception is `wax_setup` filling the project name into the
+  `wax_handoff` skill. The single exception is `wax_init` filling the project name into the
   shipped genesis entry of a brand-new copy of `.agents/`; it never touches an existing
   `handoffs/`.
 - **R-05 HEAD moves with the directory.** Writing an entry under `handoffs/handoffs/` and
@@ -59,6 +59,6 @@ instructions conflict, R-03 decides.
   `HANDOFF.md`, and every `SKILL.md` keep their names and locations.
 - **R-15 Rules are root, preferences are user-level.** `RULES.md` is never edited by an agent
   or at install time. `PREFERENCES.md` ships with defaults; they are changed only during the
-  `setup` procedure of `wax_setup`, or later on an explicit human instruction quoted in that
+  `setup` procedure of `wax_init`, or later on an explicit human instruction quoted in that
   session's handoff. Preferences are cited by ID (`P-01` …) and bind exactly like rules until
   changed.

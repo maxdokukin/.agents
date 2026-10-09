@@ -1,5 +1,5 @@
 ---
-name: wax_setup
+name: wax_init
 description: >
   Set up the .agents folder for a project: copy this reference design into a target project
   (a path you are given, or the project you are standing in), fill in the project name, and
@@ -10,7 +10,7 @@ description: >
   Triggers: setup, bootstrap, init, install .agents, new project, check .agents, verify setup.
 ---
 
-# wax_setup
+# wax_init
 
 Creates a fresh `.agents/` in a project from this reference design, and checks existing ones.
 Two procedures: `setup` and `check`. The deterministic work lives in two scripts under
