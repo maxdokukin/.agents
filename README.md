@@ -1,9 +1,9 @@
 # WAX Agentic Workspace
 
-Version **WAX 1.2**. The name is XAW (XeWe Agentic Workspace) read backwards: WAX makes the
+Version **WAX 1.3**. The name is XAW (XeWe Agentic Workspace) read backwards: WAX makes the
 agentic experience smooth. `AGENTS.md` carries the same version string.
 
-For humans. Agents read `AGENTS.md` instead and are told not to open this file (P-01).
+For humans. Agents read `.agents/AGENTS.md`; this file is not part of what gets installed.
 
 ## Summary
 
@@ -48,13 +48,13 @@ directory. Skills need no router: their frontmatter is the index.
    Install the WAX Agentic Workspace skills. Run exactly these commands and nothing else:
    if [ -d ~/.wax ]; then git -C ~/.wax pull --ff-only; else git clone --depth 1 https://github.com/maxdokukin/wax_agents ~/.wax; fi
    mkdir -p ~/.claude/skills
-   ln -sfn ~/.wax/skills/wax_init ~/.claude/skills/wax_init
-   ln -sfn ~/.wax/skills/wax_handoff ~/.claude/skills/wax_handoff
+   ln -sfn ~/.wax/.agents/skills/wax_init ~/.claude/skills/wax_init
+   ln -sfn ~/.wax/.agents/skills/wax_handoff ~/.claude/skills/wax_handoff
    Then tell me to start a new session so the skills are picked up.
    ```
 
    The same prompt updates an existing install.
-2. Go to your project and run `/wax_init`. It copies this folder into `<project>/.agents`,
+2. Go to your project and run `/wax_init`. It copies `.agents/` into `<project>/.agents`,
    fills the project name, walks you through `PREFERENCES.md`, and verifies the result. If the
    project already has an `.agents/`, it explores it first and asks you to **merge** (keep the
    handoff history, your preferences, and your skills; foreign files move into `project/`) or
@@ -77,21 +77,22 @@ whole registration (R-11).
 ### File layout
 
 ```
-.agents/
-  AGENTS.md                       agent entry point: read order, boundaries, session shape
-  README.md                       this file
-  RULES.md                        root rules R-01 … R-15, absolute
-  PREFERENCES.md                  user preferences P-01 … P-10, changed at setup
-  handoffs/
-    HANDOFF.md                    head node: HEAD, status, index
+wax_agents/                       this repository: a project with nothing but its workspace
+  README.md                       this file; not installed
+  .agents/                        what /wax_init copies, byte for byte
+    AGENTS.md                       agent entry point: read order, boundaries, session shape
+    RULES.md                        root rules R-01 … R-15, absolute
+    PREFERENCES.md                  user preferences P-01 … P-11, changed at setup
     handoffs/
-      yyyy-mm-dd-hh-mm-ss.md      blank entry template, literal name, never edited
-      <utc-stamp>.md              one immutable entry per session
-  skills/                         one folder per skill; frontmatter is the index
-    wax_handoff/                  owns handoffs/: pickup, handoff, formats reference
-    wax_init/                     creates or upgrades .agents/: init (setup, migrate), check
-    sample_skill/                 reference anatomy: SKILL.md, scripts/, references/, assets/, evals/
-  project/                        optional: foreign content merged by wax_init, listed in P-11
+      HANDOFF.md                    head node: HEAD, status, index
+      handoffs/
+        yyyy-mm-dd-hh-mm-ss.md      blank entry template, literal name, never edited
+        <utc-stamp>.md              one immutable entry per session
+    skills/                         one folder per skill; frontmatter is the index
+      wax_handoff/                  owns handoffs/: pickup, handoff, formats reference
+      wax_init/                     creates or upgrades .agents/: init (setup, migrate), check
+      sample_skill/                 reference anatomy: SKILL.md, scripts/, references/, assets/, evals/
+    project/                        optional: foreign content merged by wax_init, listed in P-11
 ```
 
 ### Session lifecycle

@@ -11,14 +11,14 @@ ok()   { echo "ok    $1"; }
 fail() { echo "FAIL  $1"; fails=$((fails+1)); }
 
 # Required files (R-13, R-14)
-for f in AGENTS.md README.md RULES.md PREFERENCES.md handoffs/HANDOFF.md handoffs/handoffs/yyyy-mm-dd-hh-mm-ss.md; do
+for f in AGENTS.md RULES.md PREFERENCES.md handoffs/HANDOFF.md handoffs/handoffs/yyyy-mm-dd-hh-mm-ss.md; do
   [ -f "$root/$f" ] && ok "$f exists" || fail "$f missing"
 done
 
 # Exact top level (R-13), plus the extra items P-11 tolerates
 extras=$(sed -n 's/^- \*\*P-11 .*tolerates exactly these: \([^.]*\)\..*/\1/p' "$root/PREFERENCES.md" 2>/dev/null | grep -oE '`[^`]+`' | tr -d '`/' | tr '\n' ' ')
 top=$(ls -A "$root" | grep -v '^\.git$' | while read -r n; do skip=0; for e in $extras; do [ "$n" = "$e" ] && skip=1; done; [ "$skip" = 0 ] && echo "$n"; done | LC_ALL=C sort | tr '\n' ' ')
-[ "$top" = "AGENTS.md PREFERENCES.md README.md RULES.md handoffs skills " ] && ok "top level is the six items${extras:+ plus P-11 extras: $extras}" || fail "top level is '$top'"
+[ "$top" = "AGENTS.md PREFERENCES.md RULES.md handoffs skills " ] && ok "top level is the five items${extras:+ plus P-11 extras: $extras}" || fail "top level is '$top'"
 
 # Template intact (R-07); project name filled
 grep -q '<yyyy-mm-dd-hh-mm-ss>' "$root/handoffs/handoffs/yyyy-mm-dd-hh-mm-ss.md" 2>/dev/null && ok "template still holds its placeholder" || fail "template altered or missing"

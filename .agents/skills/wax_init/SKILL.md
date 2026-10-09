@@ -95,7 +95,7 @@ stated.
 | `handoffs/HANDOFF.md` | yes, plus missing head keys added | — | — |
 | `PREFERENCES.md` | yes, plus new IDs appended | — | — |
 | `AGENTS.md` | project name | text | — |
-| `RULES.md`, `README.md`, template, `skills/wax_init`, `skills/wax_handoff` | — | yes | — |
+| `RULES.md`, template, `skills/wax_init`, `skills/wax_handoff` | — | yes | — |
 | `skills/sample_skill` | absent stays absent (P-04) | present is replaced | — |
 | project skills | yes | — | from `skill/skillset/` to `skills/` when needed |
 | foreign items | — | — | to `project/`; `P-11` lists `project/` |

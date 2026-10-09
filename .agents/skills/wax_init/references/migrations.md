@@ -9,7 +9,7 @@ one; this table is the human-readable account of each step. Older entries are ne
 
 | Group | Files | On merge |
 |---|---|---|
-| Reference-owned | `RULES.md`, `README.md`, the entry template, `skills/wax_init`, `skills/wax_handoff`, `skills/sample_skill` | replaced with the installer's copy; `sample_skill` stays absent if the project removed it (P-04) |
+| Reference-owned | `RULES.md`, the entry template, `skills/wax_init`, `skills/wax_handoff`, `skills/sample_skill` | replaced with the installer's copy; `sample_skill` stays absent if the project removed it (P-04) |
 | Project-owned | every `handoffs/handoffs/<stamp>.md`; any skill folder not named above | carried over unchanged |
 | Merged | `AGENTS.md` (installer's text, project name kept), `PREFERENCES.md` (project's text kept, new IDs appended under a marked heading), `handoffs/HANDOFF.md` (project's file, missing head keys added) | see each |
 | Foreign | anything else at the top level, or everything when the folder is not WAX | moved to `project/`, which P-11 then lists |
@@ -22,6 +22,7 @@ one; this table is the human-readable account of each step. Older entries are ne
 | 1.0 | 1.1 | `HANDOFF.md` gained the `Resume` key; entries gained the `Session` key in section 1. | Adds `- **Resume:** none` after `Last writer` when absent. Old entries are left as they are; the template is replaced. |
 | 1.0 | 1.1 | `wax_setup` renamed to `wax_init`. | Reference skills are replaced wholesale, so the old folder is simply not carried. |
 | 1.1 | 1.2 | `P-11` lists tolerated extra top-level items; R-13 and `check.sh` honor it; R-04 allows `wax_init` to add missing `HANDOFF.md` keys during an upgrade. | Appends `P-11` to the project's `PREFERENCES.md`; sets it to `project/` when foreign content was moved there. |
+| 1.2 | 1.3 | `.agents/README.md` removed; the repository root holds the only README. R-13 and R-14 list five fixed items; P-01 retired; P-05 drops its README clause. | The old `README.md` is simply not carried (it is reference-owned); it stays in `.agents.old-<stamp>`. |
 
 ## What is never done
 
