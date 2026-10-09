@@ -1,4 +1,4 @@
-Updated 2026-10-09 16:50:22 UTC by wax_handoff handoff. Read and written only by the wax_handoff skill (R-04, R-05).
+Updated 2026-10-09 17:05:36 UTC by wax_handoff handoff. Read and written only by the wax_handoff skill (R-04, R-05).
 
 # HANDOFF
 
@@ -7,9 +7,9 @@ status. It holds no session content; that lives in the entry files.
 
 ## Head
 
-- **HEAD:** handoffs/handoffs/2026-10-09-16-50-22.md
-- **HEAD timestamp:** 2026-10-09 16:50:22 UTC
-- **Entries:** 10
+- **HEAD:** handoffs/handoffs/2026-10-09-17-05-36.md
+- **HEAD timestamp:** 2026-10-09 17:05:36 UTC
+- **Entries:** 11
 - **Last writer:** wax_handoff handoff — Claude Code (Claude Fable 5.1)
 - **Resume:** claude --resume ded25ce6-ff9c-48c9-8ae9-f2db17bb0fc3
 - **Integrity:** consistent — HEAD is the newest entry file; entry count equals file count; every index row exists on disk. Validated at last write.
@@ -17,6 +17,7 @@ status. It holds no session content; that lives in the entry files.
 
 ## Index (newest first)
 
+- **2026-10-09-17-05-36** — Renamed wax_setup to wax_init; README "How to use" is now a paste-ready install prompt plus /wax_init — complete — next: Confirm the human committed, pushed, and tagged, then run the install prompt for real and `/wax_init` on a real project.
 - **2026-10-09-16-50-22** — WAX 1.1: moved skills to skills/*/SKILL.md, dropped the router, discovery by frontmatter — complete — next: Confirm the human committed, pushed, and tagged, then start the `wax` repo with `skills/wax_agents/SKILL.md` per the proposal.
 - **2026-10-08-18-14-25** — Discussed WAX as a Claude Code plugin and setup over an existing .agents/; no files changed — complete — next: Ask the human for their answers to the two open questions in section 8, then plan wax_dot_agents from the accepted proposals.
 - **2026-10-08-17-38-15** — Rolled scripts back to pre-session form, genesis entry now ships checked in, added Session and Resume keys — complete — next: Confirm the human committed and pushed both trees, then take the next task from section 8.
