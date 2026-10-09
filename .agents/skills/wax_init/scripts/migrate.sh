@@ -86,11 +86,14 @@ if [ -f "$old/PREFERENCES.md" ]; then
     grep -q "^- \*\*$id " "$old/PREFERENCES.md" || pref_add="$pref_add $id"
   done
 fi
+# Items the old P-11 tolerates are carried as they are; everything else outside FIXED is foreign.
+extras=""
+[ -f "$old/PREFERENCES.md" ] && extras=$(sed -n 's/^- \*\*P-11 .*tolerates exactly these: \([^.]*\)\..*/\1/p' "$old/PREFERENCES.md" | grep -oE '`[^`]+`' | tr -d '`/' | tr '\n' ' ')
 foreign=""
 for item in "$old"/* "$old"/.[!.]*; do
   [ -e "$item" ] || continue
   n=$(basename "$item"); [ "$n" = ".git" ] && continue
-  if [ "$kind" = foreign ] || ! in_list "$n" "$FIXED"; then foreign="$foreign $n"; fi
+  if [ "$kind" = foreign ] || { ! in_list "$n" "$FIXED" && ! in_list "$n" "$extras"; }; then foreign="$foreign $n"; fi
 done
 root_files=""
 for f in CLAUDE.md AGENTS.md; do [ -f "$target/$f" ] && root_files="$root_files $f"; done
@@ -118,11 +121,12 @@ echo "skills:     project skills:${project_skills:- none}${old_layout:+; layout:
 echo "handoffs:   $entries entries; HANDOFF.md missing keys:${head_missing:- none}"
 echo "prefs:      IDs the upgrade would append:${pref_add:- none}"
 echo "agents_md:  $agents_diff line(s) differ from the installer's AGENTS.md (edits stay in the old copy)"
+echo "extras:     ${extras:-none}(P-11, carried as they are)"
 echo "foreign:    ${foreign:-none}"
 echo "root:       ${root_files:-no CLAUDE.md or AGENTS.md at the project root}"
 echo "git:        $gitstate"
 echo "check:      $checkres"
-echo "merge would: keep $entries entries; carry project skills${project_skills:+ ($project_skills)}; keep PREFERENCES.md and append${pref_add:- nothing}; replace RULES.md, README.md, AGENTS.md (name kept), template, reference skills${old_layout:+; move project skills to skills/ and drop skill/SKILL.md}${head_missing:+; add missing HANDOFF.md keys}${foreign:+; move foreign items to project/ and list project/ in P-11}"
+echo "merge would: keep $entries entries; carry project skills${project_skills:+ ($project_skills)}; keep PREFERENCES.md and append${pref_add:- nothing}; replace RULES.md, AGENTS.md (name kept), template, reference skills${old_layout:+; move project skills to skills/ and drop skill/SKILL.md}${head_missing:+; add missing HANDOFF.md keys}${foreign:+; move foreign items to project/ and list project/ in P-11}"
 echo "discard would: move .agents to .agents.old-<stamp>, install $newver fresh with the genesis entry"
 [ "$mode" = explore ] && exit 0
 
@@ -181,7 +185,8 @@ if [ "$kind" = wax ]; then
   done
   [ -d "$old/skills/sample_skill" ] || [ -d "$old/skill/skillset/sample_skill" ] || { rm -rf "$new/skills/sample_skill"; echo "skills:     sample_skill stays removed (P-04)"; }
 fi
-# 4. Foreign content -> project/, tolerated through P-11.
+# 4. P-11 extras carried as they are; foreign content -> project/, tolerated through P-11.
+for n in $extras; do [ -e "$old/$n" ] && { cp -R "$old/$n" "$new/$n"; echo "extras:     carried $n"; }; done
 if [ -n "$foreign" ]; then
   mkdir -p "$new/project"
   for n in $foreign; do cp -R "$old/$n" "$new/project/$n"; echo "foreign:    $n -> .agents/project/$n"; done

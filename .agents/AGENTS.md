@@ -1,7 +1,7 @@
 # AGENTS.md — <project>
 
-This is **WAX 1.2**, the WAX Agentic Workspace. The rules, preferences, and skills below belong
-to this version; `README.md` carries the same version for humans.
+This is **WAX 1.3**, the WAX Agentic Workspace. The rules, preferences, and skills below belong
+to this version. Human documentation lives at https://github.com/maxdokukin/wax_agents.
 
 This folder is the agentic part of the project. It gives you boundaries, context, and tools,
 in that order. Read it as described below before doing anything else in the repository.
@@ -19,11 +19,6 @@ in that order. Read it as described below before doing anything else in the repo
 4. **`skills/` — tools.** One folder per skill, each with a `SKILL.md`. Discover them by
    reading the frontmatter of every `skills/*/SKILL.md` (R-10); a folder without a valid one
    is not a skill (R-11).
-
-## Do not read README.md
-
-- **`README.md` is for humans.** It holds rationale and history and repeats nothing you need.
-  Do not open, grep, or summarize it (P-01). The files above are your only source of truth.
 
 ## Session shape
 

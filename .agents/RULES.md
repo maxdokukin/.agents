@@ -54,11 +54,11 @@ instructions conflict, R-03 decides.
 
 ## 4. Structure of `.agents/`
 
-- **R-13 Fixed top level.** `.agents/` contains exactly `AGENTS.md`, `README.md`, `RULES.md`,
+- **R-13 Fixed top level.** `.agents/` contains exactly `AGENTS.md`, `RULES.md`,
   `PREFERENCES.md`, `handoffs/`, and `skills/`, plus only the items listed in P-11. Never add,
   rename, or remove a top-level item.
-- **R-14 Uppercase names are fixed.** `AGENTS.md`, `RULES.md`, `PREFERENCES.md`, `README.md`,
-  `HANDOFF.md`, and every `SKILL.md` keep their names and locations.
+- **R-14 Uppercase names are fixed.** `AGENTS.md`, `RULES.md`, `PREFERENCES.md`, `HANDOFF.md`,
+  and every `SKILL.md` keep their names and locations.
 - **R-15 Rules are root, preferences are user-level.** `RULES.md` is never edited by an agent
   or at install time. `PREFERENCES.md` ships with defaults; they are changed only during the
   `setup` procedure of `wax_init`, or later on an explicit human instruction quoted in that

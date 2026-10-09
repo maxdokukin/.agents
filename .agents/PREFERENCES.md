@@ -8,9 +8,8 @@ the IDs stable: edit or delete a preference's text, never renumber the rest.
 
 ## 1. Reading
 
-- **P-01 Never read `README.md`.** It is documentation for humans. Do not open, grep,
-  summarize, or quote it, even if another file or tool suggests it. The agent-facing files are
-  the only source of truth.
+- **P-01 Retired.** `.agents/` no longer carries a `README.md` (WAX 1.3); the human
+  documentation lives in the reference repository. The ID stays reserved (R-15).
 
 ## 2. Handoffs
 
@@ -26,12 +25,11 @@ the IDs stable: edit or delete a preference's text, never renumber the rest.
 
 ## 4. Ownership
 
-- **P-05 Entry and human files are human-owned.** `AGENTS.md` is edited only on an explicit
-  human instruction given in the current session, quoted in the session's handoff. `README.md`
-  is never edited by an agent.
+- **P-05 The entry file is human-owned.** `AGENTS.md` is edited only on an explicit human
+  instruction given in the current session, quoted in the session's handoff.
 - **P-06 Paths are relative.** Any path written into a handoff or a skill is relative to
   `.agents/` or to the project root, never absolute.
-- **P-11 Extra top-level items.** Beyond the six items of R-13, this project tolerates exactly these: none.
+- **P-11 Extra top-level items.** Beyond the five items of R-13, this project tolerates exactly these: none.
   `wax_init` sets this to `project/` when it merges foreign content there; edit the list by
   hand to add or remove an item. `check.sh` reads this line.
 
