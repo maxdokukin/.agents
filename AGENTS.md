@@ -1,6 +1,6 @@
 # AGENTS.md — <project>
 
-This is **WAX 1.1**, the WAX Agentic Workspace. The rules, preferences, and skills below belong
+This is **WAX 1.2**, the WAX Agentic Workspace. The rules, preferences, and skills below belong
 to this version; `README.md` carries the same version for humans.
 
 This folder is the agentic part of the project. It gives you boundaries, context, and tools,

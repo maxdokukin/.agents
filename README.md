@@ -1,6 +1,6 @@
 # WAX Agentic Workspace
 
-Version **WAX 1.1**. The name is XAW (XeWe Agentic Workspace) read backwards: WAX makes the
+Version **WAX 1.2**. The name is XAW (XeWe Agentic Workspace) read backwards: WAX makes the
 agentic experience smooth. `AGENTS.md` carries the same version string.
 
 For humans. Agents read `AGENTS.md` instead and are told not to open this file (P-01).
@@ -55,8 +55,11 @@ directory. Skills need no router: their frontmatter is the index.
 
    The same prompt updates an existing install.
 2. Go to your project and run `/wax_init`. It copies this folder into `<project>/.agents`,
-   fills the project name, walks you through `PREFERENCES.md`, and verifies the result. It
-   refuses to overwrite an existing `.agents/`.
+   fills the project name, walks you through `PREFERENCES.md`, and verifies the result. If the
+   project already has an `.agents/`, it explores it first and asks you to **merge** (keep the
+   handoff history, your preferences, and your skills; foreign files move into `project/`) or
+   **discard** (set it aside and install fresh). Nothing is deleted: the old folder becomes
+   `.agents.old-<stamp>`.
 
 From then on, every session in that project starts with `/wax_handoff` pickup and ends with
 `/wax_handoff` handoff. The first pickup quotes the genesis entry that ships with this
@@ -86,8 +89,9 @@ whole registration (R-11).
       <utc-stamp>.md              one immutable entry per session
   skills/                         one folder per skill; frontmatter is the index
     wax_handoff/                  owns handoffs/: pickup, handoff, formats reference
-    wax_init/                    creates .agents/ in a project: setup, check
+    wax_init/                     creates or upgrades .agents/: init (setup, migrate), check
     sample_skill/                 reference anatomy: SKILL.md, scripts/, references/, assets/, evals/
+  project/                        optional: foreign content merged by wax_init, listed in P-11
 ```
 
 ### Session lifecycle

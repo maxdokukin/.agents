@@ -3,7 +3,7 @@
 These are the defaults that ship with the WAX Agentic Workspace. Unlike `RULES.md`, they are
 yours to change: the `setup` procedure of `wax_init` walks through them when `.agents/` is
 installed, and a human can change them later (R-15). Until changed, each one binds exactly like
-a rule and is cited by ID (`P-01` … `P-10`). A preference never overrides a rule (R-03). Keep
+a rule and is cited by ID (`P-01` … `P-11`). A preference never overrides a rule (R-03). Keep
 the IDs stable: edit or delete a preference's text, never renumber the rest.
 
 ## 1. Reading
@@ -31,6 +31,9 @@ the IDs stable: edit or delete a preference's text, never renumber the rest.
   is never edited by an agent.
 - **P-06 Paths are relative.** Any path written into a handoff or a skill is relative to
   `.agents/` or to the project root, never absolute.
+- **P-11 Extra top-level items.** Beyond the six items of R-13, this project tolerates exactly these: none.
+  `wax_init` sets this to `project/` when it merges foreign content there; edit the list by
+  hand to add or remove an item. `check.sh` reads this line.
 
 ## 5. Conduct and Reporting
 
