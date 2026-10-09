@@ -46,7 +46,7 @@ directory. Skills need no router: their frontmatter is the index.
 
    ```
    Install the WAX Agentic Workspace skills. Run exactly these commands and nothing else:
-   if [ -d ~/.wax ]; then git -C ~/.wax pull --ff-only; else git clone --depth 1 https://github.com/maxdokukin/.agents ~/.wax; fi
+   if [ -d ~/.wax ]; then git -C ~/.wax pull --ff-only; else git clone --depth 1 https://github.com/maxdokukin/wax_agents ~/.wax; fi
    mkdir -p ~/.claude/skills
    ln -sfn ~/.wax/skills/wax_init ~/.claude/skills/wax_init
    ln -sfn ~/.wax/skills/wax_handoff ~/.claude/skills/wax_handoff
