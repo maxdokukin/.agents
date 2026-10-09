@@ -26,6 +26,11 @@ target=$(cd "$target" && pwd)
 case "$target/" in "$source"/*) echo "FAIL: target $target is inside the reference .agents"; exit 1 ;; esac
 [ "$target" = "$(dirname "$source")" ] && { echo "FAIL: $target already holds the reference .agents itself"; exit 1; }
 [ -e "$target/.agents" ] && { echo "FAIL: $target/.agents already exists; run check.sh on it instead (nothing overwritten)"; exit 1; }
+# The source must ship the genesis state: exactly one entry, titled GENESIS. A development tree with its own
+# entries would hand its history to the project (the problem WAX exists to prevent).
+src_entries=$(ls "$source/handoffs/handoffs" | grep -cE '^[0-9]{4}(-[0-9]{2}){5}\.md$' || true)
+src_genesis=$(grep -l '^- \*\*Title:\*\* GENESIS' "$source"/handoffs/handoffs/[0-9]*.md 2>/dev/null | wc -l | tr -d ' ')
+[ "$src_entries" = 1 ] && [ "$src_genesis" = 1 ] || { echo "FAIL: $source holds $src_entries handoff entries, not the single genesis entry; install from a clone of the public repository"; exit 1; }
 
 echo "source: $source"
 echo "target: $target/.agents"

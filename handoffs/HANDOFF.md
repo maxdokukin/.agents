@@ -1,4 +1,4 @@
-Updated 2026-10-09 17:09:15 UTC by wax_handoff handoff. Read and written only by the wax_handoff skill (R-04, R-05).
+Updated 2026-10-09 17:30:49 UTC by wax_handoff handoff. Read and written only by the wax_handoff skill (R-04, R-05).
 
 # HANDOFF
 
@@ -7,9 +7,9 @@ status. It holds no session content; that lives in the entry files.
 
 ## Head
 
-- **HEAD:** handoffs/handoffs/2026-10-09-17-09-15.md
-- **HEAD timestamp:** 2026-10-09 17:09:15 UTC
-- **Entries:** 12
+- **HEAD:** handoffs/handoffs/2026-10-09-17-30-49.md
+- **HEAD timestamp:** 2026-10-09 17:30:49 UTC
+- **Entries:** 13
 - **Last writer:** wax_handoff handoff — Claude Code (Claude Fable 5.1)
 - **Resume:** claude --resume ded25ce6-ff9c-48c9-8ae9-f2db17bb0fc3
 - **Integrity:** consistent — HEAD is the newest entry file; entry count equals file count; every index row exists on disk. Validated at last write.
@@ -17,6 +17,7 @@ status. It holds no session content; that lives in the entry files.
 
 ## Index (newest first)
 
+- **2026-10-09-17-30-49** — WAX 1.2: wax_init migrates an existing .agents (explore, merge, discard), P-11 extra items, genesis-source guard — complete — next: Confirm the human committed, pushed, and tagged v1.2, then run /wax_init on the two real projects from a genesis-state source and record the upgrade handoff in the first.
 - **2026-10-09-17-09-15** — Renamed the public repo to maxdokukin/wax_agents; install prompt and profile README point at it — complete — next: Confirm the human committed and pushed the three repos and settled the v1.1 tag, then run the install prompt for real.
 - **2026-10-09-17-05-36** — Renamed wax_setup to wax_init; README "How to use" is now a paste-ready install prompt plus /wax_init — complete — next: Confirm the human committed, pushed, and tagged, then run the install prompt for real and `/wax_init` on a real project.
 - **2026-10-09-16-50-22** — WAX 1.1: moved skills to skills/*/SKILL.md, dropped the router, discovery by frontmatter — complete — next: Confirm the human committed, pushed, and tagged, then start the `wax` repo with `skills/wax_agents/SKILL.md` per the proposal.
